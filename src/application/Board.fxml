@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7ca88" height="317.0" layoutX="32.0" layoutY="42.0" strokeType="INSIDE" width="357.0">
+         <stroke>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </stroke>
+      </Rectangle>
+      <Rectangle arcWidth="50.0" fill="#f7ca88" height="252.0" layoutX="73.0" layoutY="75.0" stroke="#383838" strokeType="INSIDE" strokeWidth="5.0" width="275.0" />
+      <Rectangle arcWidth="50.0" fill="#f7ca88" height="143.0" layoutX="142.0" layoutY="130.0" stroke="#383838" strokeType="INSIDE" strokeWidth="5.0" width="137.0" />
+      <Circle fill="#383838" layoutX="75.0" layoutY="75.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="75.0" layoutY="327.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="345.0" layoutY="75.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="345.0" layoutY="327.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="345.0" layoutY="201.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="75.0" layoutY="202.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="211.0" layoutY="327.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="211.0" layoutY="75.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="142.0" layoutY="132.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="279.0" layoutY="132.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="279.0" layoutY="273.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="142.0" layoutY="273.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="211.0" layoutY="132.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="279.0" layoutY="201.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="142.0" layoutY="202.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="211.0" layoutY="273.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Line endX="-360.0" endY="-32.0" layoutX="507.0" layoutY="234.0" startX="-430.0" startY="-32.0" stroke="#383838" strokeWidth="5.0" />
+      <Line endX="-240.0" endY="-40.0" layoutX="517.0" layoutY="244.0" startX="-170.0" startY="-40.0" stroke="#383838" strokeWidth="5.0" />
+      <Line endX="-315.0" endY="-130.0" layoutX="527.0" layoutY="254.0" startX="-315.0" startY="-180.0" stroke="#383838" strokeWidth="5.0" />
+      <Line endX="-325.0" endY="10.0" layoutX="537.0" layoutY="264.0" startX="-325.0" startY="65.0" stroke="#383838" strokeWidth="5.0" />
+   </children>
+</Pane>
