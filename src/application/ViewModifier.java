@@ -15,4 +15,10 @@ public class ViewModifier {
 			System.out.println("Error! Color not found"); //I sure hope this never happens
 		}
 	}
+
+	public static void clearColors(Circle[] nodes) {
+		for (int i = 0; i < nodes.length; i++) {
+			nodes[i].setFill(Color.BLACK);
+		}
+	}
 }
