@@ -1,7 +1,5 @@
 package application;
 
-import java.util.*;
-
 enum Setting {
     None, Empty, Red, Blue
 }
