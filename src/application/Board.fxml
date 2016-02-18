@@ -30,21 +30,21 @@
       <Circle fx:id="redButton" fill="RED" layoutX="496.0" layoutY="66.0" onMouseClicked="#redClick" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Button layoutX="416.0" layoutY="367.0" mnemonicParsing="false" onAction="#checkButton" text="Check" />
       <Button layoutX="122.0" layoutY="367.0" mnemonicParsing="false" onAction="#clearButton" text="Clear" />
-      <Circle fx:id="R0C0" fill="#383838" layoutX="165.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R0C1" fill="#383838" layoutX="301.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R0C2" fill="#383838" layoutX="435.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R1C2" fill="#383838" layoutX="369.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R1C1" fill="#383838" layoutX="301.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R1C0" fill="#383838" layoutX="232.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R2C0" fill="#383838" layoutX="165.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R4C0" fill="#383838" layoutX="165.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R4C1" fill="#383838" layoutX="301.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R4C2" fill="#383838" layoutX="435.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R2C3" fill="#383838" layoutX="435.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R3C2" fill="#383838" layoutX="369.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R3C1" fill="#383838" layoutX="301.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R3C0" fill="#383838" layoutX="232.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R2C1" fill="#383838" layoutX="232.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fx:id="R2C2" fill="#383838" layoutX="369.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R0C0" fill="BLACK" layoutX="165.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R0C1" fill="BLACK" layoutX="301.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R0C2" fill="BLACK" layoutX="435.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R1C2" fill="BLACK" layoutX="369.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R1C1" fill="BLACK" layoutX="301.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R1C0" fill="BLACK" layoutX="232.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R2C0" fill="BLACK" layoutX="165.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R4C0" fill="BLACK" layoutX="165.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R4C1" fill="BLACK" layoutX="301.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R4C2" fill="BLACK" layoutX="435.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R2C3" fill="BLACK" layoutX="435.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R3C2" fill="BLACK" layoutX="369.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R3C1" fill="BLACK" layoutX="301.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R3C0" fill="BLACK" layoutX="232.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R2C1" fill="BLACK" layoutX="232.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fx:id="R2C2" fill="BLACK" layoutX="369.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
    </children>
 </Pane>
