@@ -5,8 +5,16 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 
 public class BoardController {
+	private Circle
+	R0C0, R0C1, R0C2,
+	R1C0, R1C1, R1C2,
+	R2C0, R2C1, R2C2, R2C3,
+	R3C0, R3C1, R3C2,
+	R4C0, R4C1, R4C2;
+	
 
 	// Event Listener on Circle.onMouseClicked
 	@FXML
