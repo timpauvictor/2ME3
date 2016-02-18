@@ -44,12 +44,6 @@ public class BoardController {
 	
 	// Event Listener on Button.onAction
 	@FXML
-	public void quitButton(ActionEvent event) {
-		System.out.println("Quit Button Pressed");
-	}
-	
-	// Event Listener on Button.onAction
-	@FXML
 	public void clearButton(ActionEvent event) {
 		System.out.println("Clear Button Pressed");
 	}
