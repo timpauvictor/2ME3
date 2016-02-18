@@ -26,7 +26,7 @@
       <Line endX="-240.0" endY="-40.0" layoutX="612.0" layoutY="241.0" startX="-170.0" startY="-40.0" stroke="#383838" strokeWidth="5.0" />
       <Line endX="-315.0" endY="-130.0" layoutX="617.0" layoutY="254.0" startX="-315.0" startY="-180.0" stroke="#383838" strokeWidth="5.0" />
       <Line endX="-325.0" endY="10.0" layoutX="627.0" layoutY="264.0" startX="-325.0" startY="65.0" stroke="#383838" strokeWidth="5.0" />
-      <Circle fill="DODGERBLUE" layoutX="57.0" layoutY="99.0" onMouseClicked="#blueClick" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueButton" fill="DODGERBLUE" layoutX="57.0" layoutY="99.0" onMouseClicked="#blueClick" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="redButton" fill="#ff1e2c" layoutX="543.0" layoutY="99.0" onMouseClicked="#redClick" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
       <Button layoutX="271.0" layoutY="367.0" mnemonicParsing="false" onAction="#checkButton" text="Check" />
       <Button layoutX="417.0" layoutY="367.0" mnemonicParsing="false" onAction="#quitButton" text="Quit" />
