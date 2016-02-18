@@ -22,22 +22,6 @@
       </Rectangle>
       <Rectangle arcWidth="50.0" fill="#f7ca88" height="252.0" layoutX="163.0" layoutY="75.0" stroke="#383838" strokeType="INSIDE" strokeWidth="5.0" width="275.0" />
       <Rectangle arcWidth="50.0" fill="#f7ca88" height="143.0" layoutX="232.0" layoutY="130.0" stroke="#383838" strokeType="INSIDE" strokeWidth="5.0" width="137.0" />
-      <Circle fill="#383838" layoutX="165.0" layoutY="75.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="165.0" layoutY="327.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="435.0" layoutY="75.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="435.0" layoutY="327.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="435.0" layoutY="201.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="165.0" layoutY="202.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="301.0" layoutY="327.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="301.0" layoutY="75.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="232.0" layoutY="132.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="369.0" layoutY="132.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="369.0" layoutY="273.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="232.0" layoutY="273.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="301.0" layoutY="132.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="369.0" layoutY="201.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="232.0" layoutY="202.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Circle fill="#383838" layoutX="301.0" layoutY="273.0" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Line endX="-360.0" endY="-32.0" layoutX="597.0" layoutY="234.0" startX="-430.0" startY="-32.0" stroke="#383838" strokeWidth="5.0" />
       <Line endX="-240.0" endY="-40.0" layoutX="607.0" layoutY="244.0" startX="-170.0" startY="-40.0" stroke="#383838" strokeWidth="5.0" />
       <Line endX="-315.0" endY="-130.0" layoutX="617.0" layoutY="254.0" startX="-315.0" startY="-180.0" stroke="#383838" strokeWidth="5.0" />
@@ -47,5 +31,21 @@
       <Button layoutX="271.0" layoutY="367.0" mnemonicParsing="false" onAction="#checkButton" text="Check" />
       <Button layoutX="417.0" layoutY="367.0" mnemonicParsing="false" onAction="#quitButton" text="Quit" />
       <Button layoutX="122.0" layoutY="367.0" mnemonicParsing="false" onAction="#clearButton" text="Clear" />
+      <Circle fill="#383838" layoutX="165.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="301.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="435.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="369.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="301.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="232.0" layoutY="132.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="165.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="165.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="301.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="435.0" layoutY="327.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="435.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="369.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="301.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="232.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="232.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Circle fill="#383838" layoutX="369.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
    </children>
 </Pane>

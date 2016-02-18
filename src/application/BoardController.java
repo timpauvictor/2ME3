@@ -38,4 +38,8 @@ public class BoardController {
 		System.out.println("Clear Button Pressed");
 	}
 	
+	public void nodeClick(MouseEvent event) {
+		System.out.println("Node Clicked");
+	}
+	
 }
