@@ -1,9 +1,7 @@
 package application;
 
 import application.BoardController.playerColor;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 public class ViewModifier {
@@ -16,6 +14,5 @@ public class ViewModifier {
 		} else {
 			System.out.println("Error! Color not found"); //I sure hope this never happens
 		}
-		
 	}
 }
