@@ -13,11 +13,9 @@ public class ViewModifier {
 			node.setFill(Color.RED);
 		} else if (currentColor == playerColor.Blue) {
 			node.setFill(Color.BLUE);
+		} else {
+			System.out.println("Error! Color not found"); //I sure hope this never happens
 		}
 		
 	}
-
-	
-	
-
 }
