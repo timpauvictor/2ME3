@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
 public class BoardController {
+	@FXML //this @ must be added to relate it back to the FXML file
 	private Circle
 	R0C0, R0C1, R0C2,
 	R1C0, R1C1, R1C2,
