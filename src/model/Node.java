@@ -15,7 +15,8 @@ public class Node {
     private Node[] adj = {right, down, left, up};
 
     /**
-     *
+     * default recursive constructor for a Node
+     * generates 4 adjacent nodes
      */
     public Node() {
         this.right = new Node(Setting.None);
@@ -25,16 +26,18 @@ public class Node {
     }
 
     /**
-     * @param setting
+     * terminating constructor for an adjacent Node
+     * only
+     * @param setting - the color of the terminating node
      */
-    public Node(Setting setting) {
+    private Node(Setting setting) {
         this.setting = setting;
     }
 
     /**
-     *
-     * @param n
-     * @param direction
+     * updates one adjacent node of the current node
+     * @param n - the new adjacent node
+     * @param direction - the direction to be updated
      */
     public void addVertex(Node n, Adjacency direction) {
         switch(direction) {
@@ -58,47 +61,23 @@ public class Node {
     }
 
     /**
-     *
+     * changes the color of the current node
+     * @param setting - the new color
      */
     public void setColor(Setting setting) {
         this.setting = setting;
     }
 
     /**
-     *
-     * @return
+     * retrives the current color
+     * @return the current color
      */
-    public boolean isRed() {
-        return this.setting == Setting.Red;
+    public Setting getColor() {
+        return this.setting;
     }
 
     /**
-     *
-     * @return
-     */
-    public boolean isBlue() {
-        return this.setting == Setting.Blue;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean isEmpty() {
-        return this.setting == Setting.Empty;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean isNone() {
-        return this.setting == Setting.None;
-    }
-
-    /**
-     *
-     * @return
+     * @return the string of the current color setting
      */
     public String value() {
         switch (this.setting) {
@@ -115,8 +94,7 @@ public class Node {
     }
 
     /**
-     *
-     * @return
+     * @return a string contain the color of the current node plus its adjacent nodess
      */
     @Override
     public String toString() {
