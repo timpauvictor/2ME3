@@ -1,17 +1,8 @@
-import java.util.*;
+package model;
 
-enum Setting {
-    None, Empty, Red, Blue
-}
-
-enum Adjacency {
-    Right, Down, Left, Up;
-    public Adjacency getNext() {
-        return values()[(ordinal() + 1) % values().length];
-    }
-}
-
-
+/**
+ *
+ */
 public class Node {
 
     private Setting setting = Setting.Empty;
@@ -23,6 +14,10 @@ public class Node {
 
     private Node[] adj = {right, down, left, up};
 
+    /**
+     * default recursive constructor for a Node
+     * generates 4 adjacent nodes
+     */
     public Node() {
         this.right = new Node(Setting.None);
         this.down = new Node(Setting.None);
@@ -30,10 +25,20 @@ public class Node {
         this.up = new Node(Setting.None);
     }
 
-    public Node(Setting setting) {
+    /**
+     * terminating constructor for an adjacent Node
+     * only
+     * @param setting - the color of the terminating node
+     */
+    private Node(Setting setting) {
         this.setting = setting;
     }
 
+    /**
+     * updates one adjacent node of the current node
+     * @param n - the new adjacent node
+     * @param direction - the direction to be updated
+     */
     public void addVertex(Node n, Adjacency direction) {
         switch(direction) {
             case Right:
@@ -55,39 +60,25 @@ public class Node {
         }
     }
 
-    public void setNone() {
-        this.setting = Setting.None;
+    /**
+     * changes the color of the current node
+     * @param setting - the new color
+     */
+    public void setColor(Setting setting) {
+        this.setting = setting;
     }
 
-    public void setRed() {
-        this.setting = Setting.Red;
+    /**
+     * retrives the current color
+     * @return the current color
+     */
+    public Setting getColor() {
+        return this.setting;
     }
 
-    public void setBlue() {
-        this.setting = Setting.Blue;
-    }
-
-    public void setEmpty() {
-        this.setting = Setting.Empty;
-    }
-
-    public boolean isRed() {
-        return this.setting == Setting.Red;
-    }
-
-    public boolean isBlue() {
-        return this.setting == Setting.Blue;
-    }
-
-    public boolean isEmpty() {
-        return this.setting == Setting.Empty;
-    }
-
-    public boolean isNone() {
-        return this.setting == Setting.None;
-    }
-
-
+    /**
+     * @return the string of the current color setting
+     */
     public String value() {
         switch (this.setting) {
             case None:
@@ -102,6 +93,9 @@ public class Node {
         return "";
     }
 
+    /**
+     * @return a string contain the color of the current node plus its adjacent nodess
+     */
     @Override
     public String toString() {
         String str = "";
@@ -109,16 +103,7 @@ public class Node {
         str += "Right: " + this.right.value() + ", ";
         str += "Down: " + this.down.value() + ", ";
         str += "Left: " + this.left.value() + ", ";
-        str += "Up: " + this.up.value();
+        str += "Up: " + this.up.value() + "\n";
         return str;
     }
-
-    public static void main(String[] args) {
-        Node n = new Node();
-        Node m = new Node();
-        n.addVertex(m, Adjacency.Right);
-        System.out.println(n);
-        System.out.println(m);
-    }
-
 }
