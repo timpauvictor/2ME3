@@ -1,5 +1,8 @@
 package application;
 	
+import java.util.Random;
+
+import application.BoardController.playerColor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,8 +23,23 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args) {
-		launch(args);
+	private static void orderPlayRandom() {
+		System.out.println("Generate order of play randomly..");
+		Random random = new Random();
+		int num = random.nextInt(99) + 0;
+		if (num < 50) {
+			System.out.println("Red play first!");
+			BoardController.setCurretnColor(playerColor.Red);
+		} else {
+			System.out.println("Blue play first!");
+			BoardController.setCurretnColor(playerColor.Blue);
+		}
 	}
+	public static void main(String[] args) {
+		orderPlayRandom();
+		launch(args);
+		
+	}
+
+	
 }

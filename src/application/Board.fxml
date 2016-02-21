@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BoardController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BoardController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7ca88" height="317.0" layoutX="122.0" layoutY="42.0" strokeType="INSIDE" width="357.0">
          <stroke>
@@ -28,7 +29,7 @@
       <Line endX="-325.0" endY="10.0" layoutX="627.0" layoutY="264.0" startX="-325.0" startY="65.0" stroke="#383838" strokeWidth="5.0" />
       <Circle fx:id="blueButton" fill="BLUE" layoutX="105.0" layoutY="66.0" onMouseClicked="#blueClick" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="redButton" fill="RED" layoutX="496.0" layoutY="66.0" onMouseClicked="#redClick" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button layoutX="416.0" layoutY="367.0" mnemonicParsing="false" onAction="#checkButton" text="Check" />
+      <Button layoutX="435.0" layoutY="367.0" mnemonicParsing="false" onAction="#checkButton" text="Check" />
       <Button layoutX="122.0" layoutY="367.0" mnemonicParsing="false" onAction="#clearButton" text="Clear" />
       <Circle fx:id="R0C0" fill="BLACK" layoutX="165.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Circle fx:id="R0C1" fill="BLACK" layoutX="301.0" layoutY="75.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
@@ -46,5 +47,7 @@
       <Circle fx:id="R3C0" fill="BLACK" layoutX="232.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Circle fx:id="R2C1" fill="BLACK" layoutX="232.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Circle fx:id="R2C2" fill="BLACK" layoutX="369.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
+      <Button layoutX="273.0" layoutY="367.0" mnemonicParsing="false" onAction="#restartButton" text="Restart" />
+      <Label fx:id="message" layoutX="513.0" layoutY="157.0" onInputMethodTextChanged="#blueClick" prefHeight="96.0" prefWidth="83.0" />
    </children>
 </Pane>
