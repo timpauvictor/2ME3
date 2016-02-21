@@ -97,8 +97,4 @@ public class BoardController {
 		}
 	}
 	
-	public void startGame(ActionEvent event){
-		orderPlayRandom();
-	}
-	
 }
