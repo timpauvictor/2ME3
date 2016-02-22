@@ -12,6 +12,10 @@ public class Node {
     private Node left;
     private Node up;
 
+    private boolean isRed;
+    private boolean isBlue;
+    private boolean isEmpty = true;
+
     private Node[] adj = {right, down, left, up};
 
     /**
@@ -30,7 +34,7 @@ public class Node {
      * only
      * @param setting - the color of the terminating node
      */
-    private Node(Setting setting) {
+    public Node(Setting setting) {
         this.setting = setting;
     }
 
@@ -65,11 +69,29 @@ public class Node {
      * @param setting - the new color
      */
     public void setColor(Setting setting) {
+        switch (setting) {
+            case Red:
+                isRed = true;
+                isEmpty = false;
+            case Blue:
+                isBlue = true;
+                isEmpty = false;
+        }
         this.setting = setting;
     }
 
     /**
-     * retrives the current color
+     * temporary method for check if another node has been laid
+     * over this one
+     *
+     * @return whether the current node is legal or not
+     */
+    public boolean isLegal() {
+        return !(isBlue && isRed);
+    }
+
+    /**
+     * retrieves the current color
      * @return the current color
      */
     public Setting getColor() {
@@ -100,10 +122,10 @@ public class Node {
     public String toString() {
         String str = "";
         str += this.value() + " : ";
-        str += "Right: " + this.right.value() + ", ";
-        str += "Down: " + this.down.value() + ", ";
-        str += "Left: " + this.left.value() + ", ";
-        str += "Up: " + this.up.value() + "\n";
+        str += "Right: " + right.value() + ", ";
+        str += "Down: " + down.value() + ", ";
+        str += "Left: " + left.value() + ", ";
+        str += "Up: " + up.value() + "\n";
         return str;
     }
 }
