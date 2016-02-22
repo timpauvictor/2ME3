@@ -125,4 +125,16 @@ public class Board {
         board[row][column].setColor(setting);
     }
 
+    /**
+     * check if any nodes on the board are illegal
+     *
+     * @return the legality of the board
+     */
+    public boolean isLegal() {
+        for (Node[] nodes : board)
+            for (Node n : nodes)
+                if (!n.isLegal())
+                    return false;
+        return true;
+    }
 }
