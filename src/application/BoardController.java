@@ -1,13 +1,13 @@
 package application;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
+import model.PlayerColor;
 
 import java.util.Random;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 
 //Thr Controller part of the application
 public class BoardController {
@@ -18,15 +18,13 @@ public class BoardController {
 	R2C0, R2C1, R2C2, R2C3,
 	R3C0, R3C1, R3C2,
 	R4C0, R4C1, R4C2;
-	private static playerColor currentColor = null;//Set default player colour to null
+	private static PlayerColor currentColor = null;//Set default player colour to null
 	
 	
-	enum playerColor {//Two colours of the player
-			Blue, Red;
-	}
+
 
 	//Set curentColor to the given color
-	public static void setCurretnColor(playerColor str) {
+	public static void setCurretnColor(PlayerColor str) {
 		currentColor = str;
 	}
 	
@@ -34,14 +32,14 @@ public class BoardController {
 	@FXML
 	public void blueClick(MouseEvent event) {
 		System.out.println("Blue Piece Clicked");
-		currentColor = playerColor.Blue;
+		currentColor = PlayerColor.Blue;
 	}
 	
 	// Event Listener on Circle[#redButton].onMouseClicked
 	@FXML
 	public void redClick(MouseEvent event) {
 		System.out.println("Red Piece Clicked");
-		currentColor = playerColor.Red;
+		currentColor = PlayerColor.Red;
 	}
 	
 	// Event Listener on Button.onAction
@@ -93,10 +91,10 @@ public class BoardController {
 		int num = random.nextInt(99) + 0;
 		if (num < 50) {
 			System.out.println("Red play first!");
-			currentColor = playerColor.Red;
+			currentColor = PlayerColor.Red;
 		} else {
 			System.out.println("Blue play first!");
-			currentColor = playerColor.Blue;
+			currentColor = PlayerColor.Blue;
 		}
 	}
 	

@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Arrays;
+import javafx.scene.shape.Circle;
 
 public class Board {
 
@@ -11,7 +11,7 @@ public class Board {
     private Node[][] board = new Node[5][];
 
     /**
-     * defaut constructor for board class
+     * default constructor for board class
      * creates a 6-mens-morris board through
      * the use of a inner and outer array then
      * finally putting the two in a jagged array
@@ -99,9 +99,6 @@ public class Board {
         }
     }
 
-    public String toString() {
-        return Arrays.deepToString(board);
-    }
 
     /**
      * retrieves a node from the board through
@@ -126,8 +123,20 @@ public class Board {
     }
 
     /**
-     * check if any nodes on the board are illegal
+     * overloaded method to
+     * changes a node's color through 0-based
+     * indexed row and column
      *
+     * @param row    - the row index of the node
+     * @param column - the column index of the node
+     * @param circle  - the object with the new color of the node
+     */
+    public void setNode(int row, int column, Circle circle) {
+        board[row][column].setColor(circle);
+    }
+
+    /**
+     * check if any nodes on the board are illegal
      * @return the legality of the board
      */
     public boolean isLegal() {
@@ -136,5 +145,63 @@ public class Board {
                 if (!n.isLegal())
                     return false;
         return true;
+    }
+
+    /**
+     * a method to output a string for the legality
+     * of the baord
+     *
+     * @return "legal" if isLegal() else a string detailing the illegal nodes
+     */
+    public String isLegalString() {
+        if (this.isLegal())
+            return "legal";
+        else {
+            String output = "Nodes ";
+            for (int i = 0; i < board.length; i++)
+                for (int j = 0; j < board[i].length; j++) {
+                    if (!(board[i][j].isLegal()))
+                        output += "R" + i + "C" + j + " ";
+                }
+            output += "are illegal";
+            return output;
+        }
+    }
+
+    /**
+     * maps a 2-D array of circles to the 2-D array of nodes
+     * of the board
+     *
+     * @param circles - the 2 - D array of circles
+     */
+    public void update(Circle[][] circles) {
+        for (int i = 0; i < circles.length; i++)
+            for (int j = 0; j < circles[i].length; j++) {
+                this.setNode(i, j, circles[i][j]);
+            }
+    }
+
+    /**
+     * to get string value of the board
+     * in format:
+     * R0C0
+     * R0C1
+     * R0C...
+     *
+     * @return - string value of the board
+     */
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < board.length; i++)
+            for (int j = 0; j < board[i].length; j++)
+                if (!(board[i][j].isLegal()))
+                    output += "R" + i + "C" + j + " -> " + board[i][j] + "\n";
+        return output;
+    }
+
+    public static void main(String[] args) {
+        Board b = new Board();
+        System.out.println(b);
     }
 }

@@ -1,5 +1,8 @@
 package model;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+
 /**
  *
  */
@@ -74,16 +77,33 @@ public class Node {
                 isRed = true;
                 isEmpty = false;
             case Blue:
-                isBlue = true;
-                isEmpty = false;
+
         }
         this.setting = setting;
     }
 
     /**
+     * overloaded method to accept a new color
+     * based on the properties of a circle
+     * @param circle - the new color object
+     */
+    public void setColor(Circle circle) {
+        if (circle.getFill() == Color.RED) {
+            isRed = true;
+            isEmpty = false;
+            this.setting = Setting.Red;
+        } else if (circle.getFill() == Color.BLUE) {
+            isBlue = true;
+            isEmpty = false;
+            this.setting = Setting.Blue;
+        } else {
+            return;
+        }
+    }
+
+    /**
      * temporary method for check if another node has been laid
      * over this one
-     *
      * @return whether the current node is legal or not
      */
     public boolean isLegal() {
@@ -116,16 +136,16 @@ public class Node {
     }
 
     /**
-     * @return a string contain the color of the current node plus its adjacent nodess
+     * @return a string containing the color of the current node plus its adjacent nodes
      */
     @Override
     public String toString() {
         String str = "";
-        str += this.value() + " : ";
+        str += this.value() + " | ";
         str += "Right: " + right.value() + ", ";
         str += "Down: " + down.value() + ", ";
         str += "Left: " + left.value() + ", ";
-        str += "Up: " + up.value() + "\n";
+        str += "Up: " + up.value();
         return str;
     }
 }
