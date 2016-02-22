@@ -126,6 +126,19 @@ public class Board {
     }
 
     /**
+     * overloaded method to
+     * changes a node's color through 0-based
+     * indexed row and column
+     *
+     * @param row    - the row index of the node
+     * @param column - the column index of the node
+     * @param color  - the new color of the node
+     */
+    public void setNode(int row, int column, PlayerColor color) {
+        board[row][column].setColor(color);
+    }
+
+    /**
      * check if any nodes on the board are illegal
      *
      * @return the legality of the board

@@ -1,14 +1,13 @@
 package application;
-	
-import java.util.Random;
 
-import application.BoardController.playerColor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.PlayerColor;
+
+import java.util.Random;
 
 //This is the starting point of the who;e application
 public class Main extends Application {
@@ -32,10 +31,10 @@ public class Main extends Application {
 		int num = random.nextInt(99) + 0;//Generate random number
 		if (num < 50) {
 			System.out.println("Red play first!");
-			BoardController.setCurretnColor(playerColor.Red);
+			BoardController.setCurretnColor(PlayerColor.Red);
 		} else {
 			System.out.println("Blue play first!");
-			BoardController.setCurretnColor(playerColor.Blue);
+			BoardController.setCurretnColor(PlayerColor.Blue);
 		}
 	}
 	public static void main(String[] args) {

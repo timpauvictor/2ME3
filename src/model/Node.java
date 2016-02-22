@@ -74,10 +74,27 @@ public class Node {
                 isRed = true;
                 isEmpty = false;
             case Blue:
-                isBlue = true;
-                isEmpty = false;
+
         }
         this.setting = setting;
+    }
+
+    /**
+     * overloaded method to accept playerColor
+     *
+     * @param color - the new color
+     */
+    public void setColor(PlayerColor color) {
+        switch (setting) {
+            case Red:
+                isRed = true;
+                isEmpty = false;
+                this.setting = Setting.Red;
+            case Blue:
+                isBlue = true;
+                isEmpty = false;
+                this.setting = Setting.Blue;
+        }
     }
 
     /**
@@ -116,7 +133,7 @@ public class Node {
     }
 
     /**
-     * @return a string contain the color of the current node plus its adjacent nodess
+     * @return a string containing the color of the current node plus its adjacent nodes
      */
     @Override
     public String toString() {
