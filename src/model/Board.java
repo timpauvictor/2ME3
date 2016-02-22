@@ -195,7 +195,8 @@ public class Board {
         String output = "";
         for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[i].length; j++)
-                output += "R" + i + "C" + j + " -> " + board[i][j] + "\n";
+                if (!(board[i][j].isLegal()))
+                    output += "R" + i + "C" + j + " -> " + board[i][j] + "\n";
         return output;
     }
 
