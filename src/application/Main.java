@@ -1,26 +1,48 @@
 package application;
 	
+import java.util.Random;
+
+import application.BoardController.playerColor;
 import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
-
+//This is the starting point of the who;e application
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//Load FXML file
+		    Parent root = FXMLLoader.load(getClass().getResource("Board.fxml"));
+			Scene scene = new Scene(root,615,400);//Set scene and size
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();//throw the proper exception
 		}
 	}
-	
-	public static void main(String[] args) {
-		launch(args);
+
+	//This decide the order of play randomly, and set the current colour
+	private static void orderPlayRandom() {
+		System.out.println("Generate order of play randomly..");
+		Random random = new Random();
+		int num = random.nextInt(99) + 0;//Generate random number
+		if (num < 50) {
+			System.out.println("Red play first!");
+			BoardController.setCurretnColor(playerColor.Red);
+		} else {
+			System.out.println("Blue play first!");
+			BoardController.setCurretnColor(playerColor.Blue);
+		}
 	}
+	public static void main(String[] args) {
+		orderPlayRandom();//Decide the order of play
+		launch(args);//Lauch the game board
+		
+	}
+
+	
 }
