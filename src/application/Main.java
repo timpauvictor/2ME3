@@ -10,23 +10,26 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-
+//This is the starting point of the who;e application
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			//Load FXML file
 		    Parent root = FXMLLoader.load(getClass().getResource("Board.fxml"));
-			Scene scene = new Scene(root,615,400);
+			Scene scene = new Scene(root,615,400);//Set scene and size
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();//throw the proper exception
 		}
 	}
+
+	//This decide the order of play randomly, and set the current colour
 	private static void orderPlayRandom() {
 		System.out.println("Generate order of play randomly..");
 		Random random = new Random();
-		int num = random.nextInt(99) + 0;
+		int num = random.nextInt(99) + 0;//Generate random number
 		if (num < 50) {
 			System.out.println("Red play first!");
 			BoardController.setCurretnColor(playerColor.Red);
@@ -36,8 +39,8 @@ public class Main extends Application {
 		}
 	}
 	public static void main(String[] args) {
-		orderPlayRandom();
-		launch(args);
+		orderPlayRandom();//Decide the order of play
+		launch(args);//Lauch the game board
 		
 	}
 
