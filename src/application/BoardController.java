@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import model.Board;
 import model.PlayerColor;
 
 import java.util.Random;
@@ -19,12 +20,12 @@ public class BoardController {
 	R3C0, R3C1, R3C2,
 	R4C0, R4C1, R4C2;
 	private static PlayerColor currentColor = null;//Set default player colour to null
-	
-	
 
+
+	private Board board = new Board();
 
 	//Set curentColor to the given color
-	public static void setCurretnColor(PlayerColor str) {
+	public static void setCurrentColor(PlayerColor str) {
 		currentColor = str;
 	}
 	
@@ -45,7 +46,7 @@ public class BoardController {
 	// Event Listener on Button.onAction
 	@FXML
 	public void checkButton(ActionEvent event) {
-		System.out.println("Check Button Pressed");
+		System.out.println(board.isLegalString());
 	}
 	
 	// Event Listener on Button.onAction
@@ -60,6 +61,7 @@ public class BoardController {
 				R4C0, R4C1, R4C2
 		};
 		ViewModifier.clearColors(nodes);
+		board = new Board();
 	}
 	
 	// Event Listener on Button.onAction
@@ -76,12 +78,13 @@ public class BoardController {
 		ViewModifier.clearColors(nodes);
 		currentColor = null;
 		orderPlayRandom();
-		
+		board = new Board();
 	}
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) {
 		System.out.println("Node Clicked");
 		ViewModifier.changeNodeColor((Circle) event.getSource(), currentColor);
+		board.update(jaggedCircles());
 	}
 	
 	//Randomly generate the order of play and set the colour for the player
@@ -96,6 +99,18 @@ public class BoardController {
 			System.out.println("Blue play first!");
 			currentColor = PlayerColor.Blue;
 		}
+	}
+
+	//return circles in board format
+	private Circle[][] jaggedCircles() {
+		Circle[][] nodes = {
+				{R0C0, R0C1, R0C2},
+				{R1C0, R1C1, R1C2},
+				{R2C0, R2C1, R2C2, R2C3},
+				{R3C0, R3C1, R3C2},
+				{R4C0, R4C1, R4C2}
+		};
+		return nodes;
 	}
 	
 }

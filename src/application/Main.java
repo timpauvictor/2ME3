@@ -31,10 +31,10 @@ public class Main extends Application {
 		int num = random.nextInt(99) + 0;//Generate random number
 		if (num < 50) {
 			System.out.println("Red play first!");
-			BoardController.setCurretnColor(PlayerColor.Red);
+			BoardController.setCurrentColor(PlayerColor.Red);
 		} else {
 			System.out.println("Blue play first!");
-			BoardController.setCurretnColor(PlayerColor.Blue);
+			BoardController.setCurrentColor(PlayerColor.Blue);
 		}
 	}
 	public static void main(String[] args) {

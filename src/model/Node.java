@@ -19,6 +19,7 @@ public class Node {
     private boolean isBlue;
     private boolean isEmpty = true;
 
+
     private Node[] adj = {right, down, left, up};
 
     /**
