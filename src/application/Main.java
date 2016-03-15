@@ -9,7 +9,7 @@ import model.PlayerColor;
 
 import java.util.Random;
 
-//This is the starting point of the who;e application
+//This is the starting point of the whole application
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
@@ -24,16 +24,15 @@ public class Main extends Application {
 		}
 	}
 
-	//This decide the order of play randomly, and set the current colour
+	//This decide the order of play randomly, and set the current color
 	private static void orderPlayRandom() {
-		System.out.println("Generate order of play randomly..");
 		Random random = new Random();
 		int num = random.nextInt(99) + 0;//Generate random number
 		if (num < 50) {
-			System.out.println("Red play first!");
+			//BoardController.setDefault();
 			BoardController.setCurrentColor(PlayerColor.Red);
 		} else {
-			System.out.println("Blue play first!");
+			//BoardController.updateMessage("Generate order of play randomly..Blue play first!");
 			BoardController.setCurrentColor(PlayerColor.Blue);
 		}
 	}
