@@ -25,19 +25,19 @@ public class Main extends Application {
 	}
 
 	//This decide the order of play randomly, and set the current color
-	private static void orderPlayRandom() {
-		Random random = new Random();
-		int num = random.nextInt(99) + 0;//Generate random number
-		if (num < 50) {
-			//BoardController.setDefault();
-			BoardController.setCurrentColor(PlayerColor.Red);
-		} else {
-			//BoardController.updateMessage("Generate order of play randomly..Blue play first!");
-			BoardController.setCurrentColor(PlayerColor.Blue);
-		}
-	}
+//	private static void orderPlayRandom() {
+//		Random random = new Random();
+//		int num = random.nextInt(99) + 0;//Generate random number
+//		if (num < 50) {
+//			//BoardController.setDefault();
+//			BoardController.setCurrentColor(PlayerColor.Red);
+//		} else {
+//			//BoardController.updateMessage("Generate order of play randomly..Blue play first!");
+//			BoardController.setCurrentColor(PlayerColor.Blue);
+//		}
+//	}
 	public static void main(String[] args) {
-		orderPlayRandom();//Decide the order of play
+//		orderPlayRandom();//Decide the order of play
 		launch(args);//Lauch the game board
 		
 	}
