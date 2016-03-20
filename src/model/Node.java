@@ -127,7 +127,7 @@ public class Node {
             case None:
                 return "None";
             case Empty:
-                return "Empty";
+                return "Black";
             case Red:
                 return "Red";
             case Blue:

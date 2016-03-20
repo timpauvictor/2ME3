@@ -1,9 +1,6 @@
 package model;
 
-/**
- *
- */
-enum Adjacency {
+public enum Adjacency {
     Right, Down, Left, Up;
 
     public Adjacency getNext() {

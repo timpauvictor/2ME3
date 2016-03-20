@@ -1,14 +1,10 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import java.io.*;
+import java.util.ArrayList;
 
 
 
@@ -24,13 +20,13 @@ public class Save_Load {
 			BufferedReader input = new BufferedReader(new FileReader("data/storeGame.txt"));
 			
 			String line = input.readLine();
-			result.add(PlayerColor.converter(line));
+			result.add(PlayerColor.convert(line));
 			
 			while ((line = input.readLine()) != null) {
 				String[] temp = line.split(", ");
 				for (int i = 0; i < temp.length; i++) {
 					//Call a helper function to convert a string to a PlayerColor
-					result.add(PlayerColor.converter(temp[i]));
+					result.add(PlayerColor.convert(temp[i]));
 				}
 				
 			}

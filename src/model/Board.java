@@ -2,6 +2,8 @@ package model;
 
 import javafx.scene.shape.Circle;
 
+import java.io.*;
+
 public class Board {
 
     // 8 * (n % 3)
@@ -9,6 +11,8 @@ public class Board {
     private Node[] outer = new Node[8];
     private Node[] inner = new Node[8];
     private Node[][] board = new Node[5][];
+
+    private PlayerColor turn = PlayerColor.Black;
 
     /**
      * default constructor for board class
@@ -25,6 +29,35 @@ public class Board {
         square(outer);
         connect(inner, outer);
         create(inner, outer);
+    }
+
+    /**
+     * alternative constructor to load a saved state as a new board, constructor is similar
+     * the default board, using similar methodology to connect the inner and outer rows
+     * @param file the name of the file storing the saved state
+     */
+    public Board(String file) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(new File(file)));
+            setTurn(PlayerColor.convert(reader.readLine()));
+
+            for (int i = 0; i < inner.length; i++) {
+                Node n = new Node();
+                n.setColor(Setting.fromString(reader.readLine()));
+                inner[i] = n;
+            }
+
+            for (int i = 0; i < outer.length; i++) {
+                Node n = new Node();
+                n.setColor(Setting.fromString(reader.readLine()));
+                outer[i] = n;
+            }
+
+            connect(inner,outer);
+            create(inner, outer);
+        } catch (IOException e) {
+            System.out.println("error reading stored file, did you tamper with it???");
+        }
     }
 
     /**
@@ -112,6 +145,37 @@ public class Board {
     }
 
     /**
+     * retrieves the variable keeping track of turns
+     * @return the current player's turn
+     */
+    public PlayerColor getTurn() {
+        return this.turn;
+    }
+
+    /**
+     * change the turn to some turn parameter (unspecified)
+     * @param turn the new setting for the turn
+     */
+    public void setTurn(PlayerColor turn) {
+        this.turn = turn;
+    }
+
+    /**
+     * alternating method to switch between two player's turns
+     * if red -> then blue
+     * and vice versa
+     * otherwise, the turn remains the same
+     */
+    public void changeTurn() {
+        if (turn == PlayerColor.Blue)
+            turn = PlayerColor.Red;
+        else if (turn == PlayerColor.Red)
+            turn = PlayerColor.Blue;
+        else
+            return;
+    }
+
+    /**
      * changes a node's color through 0-based
      * indexed row and column
      * @param row - the row index of the node
@@ -181,6 +245,29 @@ public class Board {
             }
     }
 
+
+    public void toFile(String filename, PlayerColor turn) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
+            writer.write(turn.toString());
+            writer.newLine();
+
+            for (Node n: outer) {
+                writer.write(n.value());
+                writer.newLine();
+            }
+
+            for (Node n: inner) {
+                writer.write(n.value());
+                writer.newLine();
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("error writing to file");
+        }
+    }
     /**
      * to get string value of the board
      * in format:
@@ -195,9 +282,15 @@ public class Board {
         String output = "";
         for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[i].length; j++)
-                if (!(board[i][j].isLegal()))
-                    output += "R" + i + "C" + j + " -> " + board[i][j] + "\n";
+                output += "R" + i + "C" + j + " -> " + board[i][j] + "\n";
         return output;
     }
 
+    public static void main(String[] args) {
+        Board b = new Board();
+        b.toFile("data/data.board", PlayerColor.Red);
+        Board c = new Board("data/data.board");
+        System.out.println(c.toString());
+        System.out.println(c.getTurn());
+    }
 }
