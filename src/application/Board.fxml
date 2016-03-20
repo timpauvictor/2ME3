@@ -10,8 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BoardController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BoardController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7ca88" height="317.0" layoutX="122.0" layoutY="42.0" strokeType="INSIDE" width="357.0">
          <stroke>
@@ -49,7 +48,7 @@
       <Circle fx:id="R3C0" fill="BLACK" layoutX="232.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Circle fx:id="R2C1" fill="BLACK" layoutX="232.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Circle fx:id="R2C2" fill="BLACK" layoutX="369.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Button layoutX="273.0" layoutY="367.0" mnemonicParsing="false" onAction="#restartButton" text="Restart" />
+      <Button layoutX="246.0" layoutY="367.0" mnemonicParsing="false" onAction="#restartButton" text="Start Game" />
       <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="53.0" layoutY="14.0" prefHeight="30.0" prefWidth="498.0" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font size="20.0" />
