@@ -132,14 +132,11 @@ public class BoardController {
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) {
-		updateMessage("Node Clicked");
+//		updateMessage("Node Clicked");
 		Node temp = new Node((Circle) event.getSource());
 		if (!temp.isLegal()) {
-			updateMessage("Invalid move!");
+//			updateMessage("Invalid move!");
 		} else {
-			ViewModifier.changeNodeColor((Circle) event.getSource(), currentColor);
-			board.update(jaggedCircles());
-
 			if (currentPhase == Phases.Planning) {
 				if (currentColor == PlayerColor.Red && redTokenCount > 0) {
 					ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Red);
@@ -152,14 +149,16 @@ public class BoardController {
 				}
 				board.update(jaggedCircles());
 			} else if (currentPhase == Phases.Fighting) {
-				// check if it's a valid click first before changing colors
+				
 			}
 		}
 
 	}
 
 	private void planningRemoveToken(PlayerColor color) {
-
+		if (color == PlayerColor.Red) {
+			
+		}
 	}
 
 	private void alternateTurn() {
