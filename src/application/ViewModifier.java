@@ -40,6 +40,10 @@ public class ViewModifier {
 		}
 	}
 	
+	public static void removeDisc(Circle input) {
+		input.setFill(Color.BLACK);
+	}
+	
 	public static void addTrophy(Circle[] circleArr) {
 		
 	}

@@ -108,6 +108,7 @@ public class BoardController {
 		else
 			return PlayerColor.Black;
 	}
+	
 
 	@FXML
 	private void saveButton(ActionEvent event) {
@@ -142,10 +143,9 @@ public class BoardController {
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) {
-//		updateMessage("Node Clicked");
 		Node temp = new Node((Circle) event.getSource());
-		if (!temp.isLegal()) {
-//			updateMessage("Invalid move!");
+		if (!temp.isValid()) {
+			updateMessage("Invalid move!");
 		} else {
 			if (currentPhase == Phases.Planning) {
 				if (currentColor == PlayerColor.Red && redTokenCount > 0) {
@@ -160,16 +160,28 @@ public class BoardController {
 					alternateTurn();
 				}
 				board.update(jaggedCircles());
+				checkMills();
 				if (redTokenCount == 0 && blueTokenCount == 0) {
 					currentPhase = Phases.Fighting;
 					updateMessage("Fighting Stage Begins");
 				}
+				
 			} else if (currentPhase == Phases.Fighting) {
 				Circle clickedNode = (Circle) event.getSource();
 				//highlightAdj(clickedNode);
 			}
 		}
 
+	}
+
+	private void checkMills() {
+		if (currentColor == PlayerColor.Red && board.hasMills(Setting.Blue)) {
+			updateMessage("Find a mill! Remove a Red disc");
+			}
+		if (currentColor == PlayerColor.Blue && board.hasMills(Setting.Red)) {
+			updateMessage("Find a mill! Remove a Blue disc");
+		}
+		
 	}
 
 	private void alternateTurn() {
