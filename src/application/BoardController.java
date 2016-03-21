@@ -13,8 +13,6 @@ import model.Node;
 import model.Phases;
 import model.PlayerColor;
 import model.Setting;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 //The Controller part of the application
@@ -37,6 +35,7 @@ public class BoardController {
 
 	private Board board = new Board();
 
+	Circle prevNode = null;
 	private Phases currentPhase = null;
 
 	// private PlayerColor currentPlayer = null;
@@ -142,44 +141,46 @@ public class BoardController {
 	}
 
 	// Event Listener on Button.onAction
-	public void nodeClick(MouseEvent event) {
-		Node temp = new Node((Circle) event.getSource());
-		if (!temp.isValid()) {
-			updateMessage("Invalid move!");
-		} else {
-			if (currentPhase == Phases.Planning) {
-				if (currentColor == PlayerColor.Red && redTokenCount > 0) {
-					ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Red);
-					redTokenCount--;
-					ViewModifier.removeToken(redTokens());
-					alternateTurn();
-				} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0) {
-					ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Blue);
-					blueTokenCount--;
-					ViewModifier.removeToken(blueTokens());
-					alternateTurn();
-				}
-				board.update(jaggedCircles());
-				checkMills();
-				if (redTokenCount == 0 && blueTokenCount == 0) {
-					currentPhase = Phases.Fighting;
-					updateMessage("Fighting Stage Begins");
-				}
-				
-			} else if (currentPhase == Phases.Fighting) {
-				Circle clickedNode = (Circle) event.getSource();
-				//highlightAdj(clickedNode);
+	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
+		if (currentPhase == Phases.Planning) { //check if in planning phase
+			if (currentColor == PlayerColor.Red && redTokenCount > 0) { //if it's red's turn and he has tokens available
+				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Red); //change the color of what he clicks on
+				redTokenCount--; //decrement his count
+				ViewModifier.removeToken(redTokens()); //remove a token from the side
+				alternateTurn(); //change turns
+			} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0) { //if it's blue's turn and he has tokens available
+				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Blue); //change the color of what he clicks on to blue
+				blueTokenCount--; //decrement his count of available tokens
+				ViewModifier.removeToken(blueTokens()); //remove a token from the side
+				alternateTurn(); //change turns
 			}
+			board.update(jaggedCircles());
+			checkMills();
+			if (redTokenCount == 0 && blueTokenCount == 0) { //if both players have 0 tokens left
+				currentPhase = Phases.selMove; //we change phases
+				updateMessage("Choose a circle to move"); //tell the user
+			}
+		} else if (currentPhase == Phases.selMove) { //check if in the selecting node to move phase
+			prevNode = (Circle) event.getSource(); //store the clicked on node to prevNode
+			if (currentColor == PlayerColor.Red && prevNode.getFill() == Color.RED) {
+				//this is valid
+				currentPhase = Phases.moveTo;
+			} else if (currentColor == PlayerColor.Blue && prevNode.getFill() == Color.BLUE) {
+				currentPhase = Phases.moveTo;
+			} else { //any other combinations are invalid
+				updateMessage("Invalid click, click on your own color!");
+			}
+		} else if (currentPhase == Phases.moveTo) { //check if in the moving phase
+				
 		}
-
 	}
 
 	private void checkMills() {
 		if (currentColor == PlayerColor.Red && board.hasMills(Setting.Blue)) {
-			updateMessage("Find a mill! Remove a Red disc");
+			updateMessage("Found a mill! Remove a Red disc");
 			}
 		if (currentColor == PlayerColor.Blue && board.hasMills(Setting.Red)) {
-			updateMessage("Find a mill! Remove a Blue disc");
+			updateMessage("Found a mill! Remove a Blue disc");
 		}
 		
 	}

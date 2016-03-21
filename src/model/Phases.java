@@ -1,5 +1,5 @@
 package model;
 
 public enum Phases {
-	Planning, Fighting;
+	Planning, selMove, moveTo;
 }
