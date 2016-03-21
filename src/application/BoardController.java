@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Board;
 import model.Node;
@@ -27,12 +28,7 @@ public class BoardController {
 	@FXML
 	private Circle redToken1, redToken2, redToken3, redToken4, redToken5, redToken6, blueToken1, blueToken2, blueToken3,
 			blueToken4, blueToken5, blueToken6;
-
-	@FXML
-	private Circle[] redTokens = { redToken1, redToken2, redToken3, redToken4, redToken5, redToken6 };
-
-	@FXML
-	private Circle[] blueTokens = { blueToken1, blueToken2, blueToken3, blueToken4, blueToken5, blueToken6 };
+	
 	private int blueTokenCount = 6;
 	private int redTokenCount = 6;
 
@@ -78,7 +74,6 @@ public class BoardController {
 		currentPhase = Phases.Planning;
 		currentColor = orderPlayRandom();
 		sayStart(currentColor);
-
 	}
 
 	private void sayStart(PlayerColor starter) {
@@ -89,6 +84,21 @@ public class BoardController {
 		}
 	}
 
+	private Circle[] redTokens() {
+		Circle[] toReturn = {
+				redToken1, redToken2, redToken3, 
+				redToken4, redToken5, redToken6
+		};
+		return toReturn;
+	}
+	
+	private Circle[] blueTokens() {
+		Circle[] toReturn = {
+				blueToken1, blueToken2, blueToken3,
+				blueToken4, blueToken5, blueToken6
+		};
+		return toReturn;
+	}
 
 	private PlayerColor toColor(Node input) {
 		if (input.getColor() == Setting.Red)
@@ -141,24 +151,25 @@ public class BoardController {
 				if (currentColor == PlayerColor.Red && redTokenCount > 0) {
 					ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Red);
 					redTokenCount--;
+					ViewModifier.removeToken(redTokens());
 					alternateTurn();
 				} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0) {
 					ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Blue);
 					blueTokenCount--;
+					ViewModifier.removeToken(blueTokens());
 					alternateTurn();
 				}
 				board.update(jaggedCircles());
+				if (redTokenCount == 0 && blueTokenCount == 0) {
+					currentPhase = Phases.Fighting;
+					updateMessage("Fighting Stage Begins");
+				}
 			} else if (currentPhase == Phases.Fighting) {
-				
+				Circle clickedNode = (Circle) event.getSource();
+				//highlightAdj(clickedNode);
 			}
 		}
 
-	}
-
-	private void planningRemoveToken(PlayerColor color) {
-		if (color == PlayerColor.Red) {
-			
-		}
 	}
 
 	private void alternateTurn() {
@@ -177,10 +188,8 @@ public class BoardController {
 		Random random = new Random();
 		int num = random.nextInt(99) + 0;
 		if (num < 50) {
-			updateMessage("Generate order of play...Red play first!");
 			return PlayerColor.Red;
 		} else {
-			updateMessage("Generate order of play...Blue play first!");
 			return PlayerColor.Blue;
 		}
 	}

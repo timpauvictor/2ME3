@@ -30,5 +30,18 @@ public class ViewModifier {
 			nodes[i].setFill(Color.BLACK);
 		}
 	}
+	
+	public static void removeToken(Circle[] circles) {
+		for (int i = 0; i < circles.length; i++) {
+			if (circles[i].getFill() != Color.TRANSPARENT) {
+				circles[i].setFill(Color.TRANSPARENT);
+				return;
+			}
+		}
+	}
+	
+	public static void addTrophy(Circle[] circleArr) {
+		
+	}
 
 }
