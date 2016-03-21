@@ -56,6 +56,7 @@ public class Board {
             connect(inner,outer);
             create(inner, outer);
         } catch (IOException e) {
+        	
             System.out.println("error reading stored file, did you tamper with it???");
         }
     }
@@ -248,7 +249,7 @@ public class Board {
 
     public void toFile(String filename, PlayerColor turn) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename), false));
             writer.write(turn.toString());
             writer.newLine();
 

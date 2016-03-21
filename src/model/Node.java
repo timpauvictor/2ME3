@@ -41,6 +41,11 @@ public class Node {
     public Node(Setting setting) {
         this.setting = setting;
     }
+    
+    
+    public Node(Circle input){
+    	setColor(input);
+    }
 
     /**
      * updates one adjacent node of the current node
@@ -108,7 +113,7 @@ public class Node {
      * @return whether the current node is legal or not
      */
     public boolean isLegal() {
-        return !(isBlue && isRed);
+        return isEmpty;
     }
 
     /**

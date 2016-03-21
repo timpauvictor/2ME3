@@ -4,7 +4,7 @@ package model;
 /**
  *
  */
-enum Setting {
+public enum Setting {
     None, Empty, Red, Blue;
 
     public static Setting fromString(String setting) {

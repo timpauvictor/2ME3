@@ -30,4 +30,5 @@ public class ViewModifier {
 			nodes[i].setFill(Color.BLACK);
 		}
 	}
+
 }
