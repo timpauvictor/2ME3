@@ -3,6 +3,8 @@ package model;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.Arrays;
+
 /**
  *
  */
@@ -102,9 +104,30 @@ public class Node {
             isBlue = true;
             isEmpty = false;
             this.setting = Setting.Blue;
-        } else {
-            return;
         }
+    }
+
+    /**
+     * adjacency check for checking whether a node contains
+     * another node in its adjacency list
+     * @param other - the other node
+     * @return true if node is contained, false otherwise
+     */
+    public boolean adjacentTo(Node other) {
+        return Arrays.asList(this.adj).contains(other);
+    }
+
+    /**
+     * overloaded method to determine if node is adjacent to a
+     * color
+     * @param setting - if adjacent to this color
+     * @return true if the node has a node with setting's color, false otherwise
+     */
+    public boolean adjacentTo(Setting setting) {
+        for (Node n : adj)
+            if (n.getColor() == setting)
+                return true;
+        return false;
     }
 
     /**
@@ -113,16 +136,25 @@ public class Node {
      * @return whether the current node is legal or not
      */
     public boolean isLegal() {
-        return isEmpty;
+        return !(isBlue && isRed);
     }
 
+    /**
+     * check if the current node is empty
+     * @return true if node can accept a setting
+     */
+
+    public boolean isValid() { return isEmpty; }
     /**
      * retrieves the current color
      * @return the current color
      */
+
     public Setting getColor() {
         return this.setting;
     }
+
+    public boolean isColor(Setting color) { return this.setting == color;}
 
     /**
      * @return the string of the current color setting
