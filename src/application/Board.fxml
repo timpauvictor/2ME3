@@ -83,17 +83,17 @@
       <Circle fx:id="blueToken4" fill="BLUE" layoutX="84.0" layoutY="110.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="blueToken5" fill="BLUE" layoutX="44.0" layoutY="158.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="blueToken6" fill="BLUE" layoutX="84.0" layoutY="158.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="redButton6" fill="RED" layoutX="44.0" layoutY="241.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="redButton11" fill="RED" layoutX="90.0" layoutY="241.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="redButton21" fill="RED" layoutX="44.0" layoutY="285.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="redButton31" fill="RED" layoutX="90.0" layoutY="285.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="redButton41" fill="RED" layoutX="44.0" layoutY="324.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="redButton51" fill="RED" layoutX="90.0" layoutY="324.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="blueButton6" fill="BLUE" layoutX="576.0" layoutY="239.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="blueButton11" fill="BLUE" layoutX="523.0" layoutY="239.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="blueButton21" fill="BLUE" layoutX="523.0" layoutY="283.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="blueButton31" fill="BLUE" layoutX="576.0" layoutY="283.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="blueButton41" fill="BLUE" layoutX="523.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="blueButton51" fill="BLUE" layoutX="576.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="redButton6" fill="#ff000000" layoutX="44.0" layoutY="241.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="redButton11" fill="#ff000000" layoutX="90.0" layoutY="241.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="redButton21" fill="#ff000000" layoutX="44.0" layoutY="285.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="redButton31" fill="#ff000000" layoutX="90.0" layoutY="285.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="redButton41" fill="#ff000000" layoutX="44.0" layoutY="324.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="redButton51" fill="#ff000000" layoutX="90.0" layoutY="324.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueButton6" fill="#0000ff00" layoutX="576.0" layoutY="239.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueButton11" fill="#0000ff00" layoutX="523.0" layoutY="239.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueButton21" fill="#0000ff00" layoutX="523.0" layoutY="283.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueButton31" fill="#0000ff00" layoutX="576.0" layoutY="283.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueButton41" fill="#0000ff00" layoutX="523.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="blueButton51" fill="#0000ff00" layoutX="576.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </Pane>

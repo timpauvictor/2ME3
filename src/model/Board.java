@@ -233,6 +233,49 @@ public class Board {
         }
     }
 
+    public boolean hasMills(Setting color) {
+        if (inner[0].isColor(color) && inner[1].isColor(color) && inner[2].isColor(color))
+            return true;
+        else if (inner[2].isColor(color) && inner[3].isColor(color) && inner[4].isColor(color))
+            return true;
+        else if (inner[4].isColor(color) && inner[5].isColor(color) && inner[6].isColor(color))
+            return true;
+        else if (inner[6].isColor(color) && inner[7].isColor(color) && inner[0].isColor(color))
+            return true;
+
+        else if (outer[0].isColor(color) && outer[1].isColor(color) && outer[2].isColor(color))
+            return true;
+        else if (outer[2].isColor(color) && outer[3].isColor(color) && outer[4].isColor(color))
+            return true;
+        else if (outer[4].isColor(color) && outer[5].isColor(color) && outer[6].isColor(color))
+            return true;
+        else if (outer[6].isColor(color) && outer[7].isColor(color) && outer[0].isColor(color))
+            return true;
+
+        return false;
+    }
+
+    /**
+     * moves one node to another if valid during the move phase of the game
+     * @param sRow - the source row
+     * @param sColumn - the source column
+     * @param dRow - the destination row
+     * @param dColumn - the destination column
+     * @throws Exception - an exception is thrown if a non-valid move is made
+     */
+    public void move(int sRow, int sColumn, int dRow, int dColumn) throws Exception{
+        if (board[sRow][sColumn].isColor(Setting.Blue) || board[sRow][sColumn].isColor(Setting.Red)) {
+            if (board[dRow][dColumn].isValid()) {
+                board[dRow][dColumn].setColor(board[sRow][sColumn].getColor());
+                board[sRow][sColumn].setColor(Setting.Empty);
+            }
+            else
+                throw new Exception("invalid move, node already occupied");
+        }
+        else
+            throw new Exception("can't move an empty node");
+    }
+
     /**
      * maps a 2-D array of circles to the 2-D array of nodes
      * of the board
