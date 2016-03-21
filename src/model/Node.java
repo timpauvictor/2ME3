@@ -3,6 +3,7 @@ package model;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -128,6 +129,14 @@ public class Node {
             if (n.getColor() == setting)
                 return true;
         return false;
+    }
+
+    public ArrayList<Node> getAdjacent() {
+        ArrayList<Node> nodes = new ArrayList<Node>();
+        for (Node n : adj)
+            if (n.getColor() != Setting.None)
+                nodes.add(n);
+        return nodes;
     }
 
     /**
