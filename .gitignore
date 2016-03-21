@@ -3,3 +3,6 @@ out/
 bin/
 *.iml
 *.class
+*.project
+build.fxbuild
+.classpath
