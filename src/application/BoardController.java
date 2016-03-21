@@ -143,12 +143,14 @@ public class BoardController {
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
 		if (currentPhase == Phases.Planning) { //check if in planning phase
-			if (currentColor == PlayerColor.Red && redTokenCount > 0) { //if it's red's turn and he has tokens available
+			//check for valid click
+			Node temp = new Node((Circle) event.getSource());
+			if (currentColor == PlayerColor.Red && redTokenCount > 0 && temp.isValid()) { //if it's red's turn and he has tokens available
 				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Red); //change the color of what he clicks on
 				redTokenCount--; //decrement his count
 				ViewModifier.removeToken(redTokens()); //remove a token from the side
 				alternateTurn(); //change turns
-			} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0) { //if it's blue's turn and he has tokens available
+			} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0 && temp.isValid()) { //if it's blue's turn and he has tokens available
 				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Blue); //change the color of what he clicks on to blue
 				blueTokenCount--; //decrement his count of available tokens
 				ViewModifier.removeToken(blueTokens()); //remove a token from the side
@@ -158,7 +160,7 @@ public class BoardController {
 			checkMills();
 			if (redTokenCount == 0 && blueTokenCount == 0) { //if both players have 0 tokens left
 				currentPhase = Phases.selMove; //we change phases
-				updateMessage("Choose a circle to move"); //tell the user
+				updateMessage(currentColor.toString() + ": Choose a circle to move"); //tell the user
 			}
 		} else if (currentPhase == Phases.selMove) { //check if in the selecting node to move phase
 			prevNode = (Circle) event.getSource(); //store the clicked on node to prevNode
@@ -168,10 +170,11 @@ public class BoardController {
 			} else if (currentColor == PlayerColor.Blue && prevNode.getFill() == Color.BLUE) {
 				currentPhase = Phases.moveTo;
 			} else { //any other combinations are invalid
-				updateMessage("Invalid click, click on your own color!");
+				updateMessage("Invalid, click your color: " + currentColor.toString());
 			}
 		} else if (currentPhase == Phases.moveTo) { //check if in the moving phase
-				
+			Circle newNode = (Circle) event.getSource();
+			checkAdj(prevNode, newNode);
 		}
 	}
 
@@ -185,6 +188,26 @@ public class BoardController {
 		
 	}
 
+	private void checkAdj(Circle one, Circle two) {
+		String oneID = one.getId();
+		String twoID = two.getId();
+		System.out.println(checkAdj(oneID, twoID));
+		
+	}
+	
+	private boolean checkAdj(String one, String two) {
+		if (one.equals("R0C0")) {
+			if (two.equals("R2C0")) {
+				return true;
+			} else if (two.equals("R0C1")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+	
 	private void alternateTurn() {
 		if (currentColor == PlayerColor.Red) {
 			currentColor = PlayerColor.Blue;
