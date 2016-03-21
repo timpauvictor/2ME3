@@ -145,6 +145,12 @@ public class Board {
         return board[row][column];
     }
 
+    public Node getNode(String position) {
+        String[] positions = position.split("C");
+        positions[0] = positions[0].replace("R", "");
+        return getNode(Integer.parseInt(positions[0]), Integer.parseInt(positions[1]));
+    }
+
     /**
      * retrieves the variable keeping track of turns
      * @return the current player's turn
@@ -330,11 +336,5 @@ public class Board {
         return output;
     }
 
-    public static void main(String[] args) {
-        Board b = new Board();
-        b.toFile("data/data.board", PlayerColor.Red);
-        Board c = new Board("data/data.board");
-        System.out.println(c.toString());
-        System.out.println(c.getTurn());
-    }
+
 }
