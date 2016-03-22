@@ -44,8 +44,16 @@ public class ViewModifier {
 		input.setFill(Color.BLACK);
 	}
 	
-	public static void addTrophy(Circle[] circleArr) {
-		
+	public static void addTrophy(Circle[] circleArr, PlayerColor player) {
+		for (int i = 0; i < circleArr.length; i++) {
+			if (circleArr[i].getFill() == Color.TRANSPARENT) {
+				if (player == PlayerColor.Blue) {
+					circleArr[i].setFill(Color.BLUE);
+				} else if (player == PlayerColor.Red) {
+					circleArr[i].setFill(Color.RED);
+				}
+			}
+		}
 	}
 
 }
