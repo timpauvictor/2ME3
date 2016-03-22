@@ -1,5 +1,5 @@
 package model;
 
 public enum Phases {
-	Planning, selMove, moveTo, millFound;
+	Planning, selMove, moveTo, millFound, gameOver;
 }
