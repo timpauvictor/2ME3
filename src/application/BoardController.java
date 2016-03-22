@@ -34,7 +34,9 @@ public class BoardController {
 	
 	private int blueTokenCount = 6;
 	private int redTokenCount = 6;
-
+	
+	private Phases prevPhase = null;
+	
 	@FXML
 	private Label message = new Label();
 
@@ -214,11 +216,11 @@ public class BoardController {
             System.out.println(newCircle.getId());
 			Node prevNode = board.getNode(prevCircle.getId());
 			if (newNode.adjacentTo(prevNode)) {
-				System.out.println("True");
+				updateMessage("True");
 				ViewModifier.changeNodeColor(prevCircle, PlayerColor.Black);
 				ViewModifier.changeNodeColor(newCircle, currentColor);
 			} else {
-				System.out.println("False");
+				updateMessage("False");
 			}
 		} else if (currentPhase == Phases.millFound) {
 			if (millFor == PlayerColor.Red) {
@@ -226,25 +228,32 @@ public class BoardController {
 				if (clickedCircle.getFill() == Color.BLUE) {
 					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
 					ViewModifier.addTrophy(redTrophies(), currentColor);
+					currentPhase = prevPhase;
+					alternateTurn();
 				}
 			} else if (millFor == PlayerColor.Blue) {
 				Circle clickedCircle = (Circle) event.getSource();
 				if (clickedCircle.getFill() == Color.RED) {
 					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
 					ViewModifier.addTrophy(blueTrophies(), currentColor);
+					currentPhase = prevPhase;
+					alternateTurn();
 				}
 			}
+			
 		}
-        board.update(jaggedCircles()); //updates the nodes for our board function
+        board.update(jaggedCircles()); //updates the nodes for our board object
 	}
 
 	private boolean checkMills() { //function to check for mills
 		if (currentColor == PlayerColor.Red && board.hasMills(Setting.Red)) {
+			prevPhase = currentPhase;
 			currentPhase = Phases.millFound;
 			updateMessage("Mill for red");
 			millFor = PlayerColor.Red;
 			return true;
 		} else if (currentColor == PlayerColor.Blue && board.hasMills(Setting.Blue)) {
+			prevPhase = currentPhase;
 			currentPhase = Phases.millFound;
 			updateMessage("Mill for blue");
 			millFor = PlayerColor.Blue;
