@@ -22,18 +22,19 @@ public class Node {
     private boolean isBlue;
     private boolean isEmpty = true;
 
-
+    private String id = "";
     private Node[] adj = {right, down, left, up};
 
     /**
      * default recursive constructor for a Node
      * generates 4 adjacent nodes
      */
-    public Node() {
+    public Node(String id) {
         this.right = new Node(Setting.None);
         this.down = new Node(Setting.None);
         this.left = new Node(Setting.None);
         this.up = new Node(Setting.None);
+        this.id = id;
         this.adj = new Node[]{right, down, left, up};
     }
 
@@ -51,6 +52,9 @@ public class Node {
     	setColor(input);
     }
 
+    public String getId() {
+        return this.id;
+    }
     /**
      * updates one adjacent node of the current node
      * @param n - the new adjacent node
@@ -75,9 +79,16 @@ public class Node {
                 n.down = this;
                 break;
         }
-        this.adj = new Node[]{right, down, left, up};
+        this.updateAdj();
+        n.updateAdj();
     }
 
+    public void updateAdj() {
+        this.adj[0] = this.right;
+        this.adj[1] = this.down;
+        this.adj[2] = this.left;
+        this.adj[3] = this.up;
+    }
     /**
      * changes the color of the current node
      * @param setting - the new color
@@ -124,7 +135,7 @@ public class Node {
     public boolean adjacentTo(Node other) {
         for (Node n : adj) {
             if (n != null)
-                if (n.hashCode() == other.hashCode())
+                if (n.getId().equals(other.getId()))
                     return true;
         }
         return false;

@@ -22,8 +22,8 @@ public class Board {
      */
     public Board() {
         for (int i = 0; i < inner.length; i++) {
-            inner[i] = new Node();
-            outer[i] = new Node();
+            inner[i] = new Node("I" + i);
+            outer[i] = new Node("O" + i);
         }
         square(inner);
         square(outer);
@@ -42,13 +42,13 @@ public class Board {
             setTurn(PlayerColor.convert(reader.readLine()));
 
             for (int i = 0; i < inner.length; i++) {
-                Node n = new Node();
+                Node n = new Node("I" + i);
                 n.setColor(Setting.fromString(reader.readLine()));
                 inner[i] = n;
             }
 
             for (int i = 0; i < outer.length; i++) {
-                Node n = new Node();
+                Node n = new Node("O" + i);
                 n.setColor(Setting.fromString(reader.readLine()));
                 outer[i] = n;
             }
@@ -125,14 +125,14 @@ public class Board {
         for (int i = 0; i < 3; i++) {
             board[0][i] = outer[i];
             board[1][i] = inner[i];
-            board[3][i] = inner[7 - i];
-            board[4][i] = outer[7 - i];
+            board[3][i] = inner[6 - i];
+            board[4][i] = outer[6 - i];
         }
 
-        for (int i = 0; i <= 2; i += 2) {
-            board[2][i] = inner[7 - i * 2];
-            board[2][i + 1] = inner[7 - i * 2];
-        }
+        board[2][0] = outer[7];
+        board[2][1] = inner[7];
+        board[2][2] = inner[3];
+        board[2][3] = outer[3];
     }
 
 
@@ -336,6 +336,11 @@ public class Board {
             for (int j = 0; j < board[i].length; j++)
                 output += "R" + i + "C" + j + " -> " + board[i][j] + "\n";
         return output;
+    }
+
+    public static void main(String[] args) {
+        Board b = new Board();
+        System.out.println(b.getNode("R0C2").adjacentTo(b.getNode("R2C3")));
     }
 
 
