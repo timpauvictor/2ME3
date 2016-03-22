@@ -53,6 +53,8 @@ public class Board {
                 outer[i] = n;
             }
 
+            square(inner);
+            square(outer);
             connect(inner,outer);
             create(inner, outer);
         } catch (IOException e) {
