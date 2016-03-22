@@ -72,6 +72,15 @@ public class BoardController {
 		// get first player
 		currentPhase = Phases.Planning;
 		currentColor = orderPlayRandom();
+
+        blueTokenCount = 6;
+        redTokenCount = 6;
+        ViewModifier.clearColors(new Circle[]{R0C0, R0C1, R0C2, R1C0, R1C1, R1C2, R2C0, R2C1, R2C2, R2C3, R3C0, R3C1, R3C2, R4C0, R4C1, R4C2});
+        for (Circle c: redTokens())
+            ViewModifier.changeNodeColor(c, PlayerColor.Red);
+        for (Circle c: blueTokens())
+            ViewModifier.changeNodeColor(c, PlayerColor.Blue);
+        board.update(jaggedCircles());
 		sayStart(currentColor);
 	}
 
@@ -112,6 +121,7 @@ public class BoardController {
 	@FXML
 	private void saveButton(ActionEvent event) {
 		updateMessage("Save Button Pressed");
+        board.update(jaggedCircles());
 		board.toFile("data/storeGame.txt", currentColor);
 	}
 
@@ -120,28 +130,27 @@ public class BoardController {
 	private void loadButton(ActionEvent event) {
 
 		board = new Board("data/storeGame.txt");
-		Circle[] nodes = { R0C0, R0C1, R0C2, R1C0, R1C1, R1C2, R2C0, R2C1, R2C2, R2C3, R3C0, R3C1, R3C2, R4C0, R4C1,
-				R4C2 };
+		Circle[][] nodes = {{R0C0, R0C1, R0C2}, {R1C0, R1C1, R1C2}, {R2C0, R2C1, R2C2, R2C3}, {R3C0, R3C1, R3C2}, {R4C0, R4C1,
+				R4C2}};
 		int count = 0;
 		for (int i = 0; i < 5; i++) {
 			if (i != 2) {
 				for (int j = 0; j < 3; j++) {
-					ViewModifier.changeNodeColor(nodes[count], toColor(board.getNode(i, j)));
+					ViewModifier.changeNodeColor(nodes[i][j], toColor(board.getNode(i, j)));
 				}
 			} else {
 				for (int j = 0; j < 4; j++) {
-
-					ViewModifier.changeNodeColor(nodes[count], toColor(board.getNode(i, j)));
-
+					ViewModifier.changeNodeColor(nodes[i][j], toColor(board.getNode(i, j)));
 				}
 			}
-			count++;
+
 		}
 		updateMessage("Load Button Pressed " + currentColor + " play first");
 	}
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
+        board.update(jaggedCircles());
 		if (currentPhase == Phases.Planning) { //check if in planning phase
 			//check for valid click
 			Node temp = new Node((Circle) event.getSource());
@@ -175,6 +184,7 @@ public class BoardController {
 		} else if (currentPhase == Phases.moveTo) { //check if in the moving phase
 			Circle newCircle = (Circle) event.getSource();
 			Node newNode = board.getNode(newCircle.getId());
+            System.out.println(newCircle.getId());
 			Node prevNode = board.getNode(prevCircle.getId());
 			if (newNode.adjacentTo(prevNode)) {
 				System.out.println("true");
@@ -184,6 +194,7 @@ public class BoardController {
 				System.out.println("False");
 			}
 		}
+        board.update(jaggedCircles());
 	}
 
 	private void checkMills() {

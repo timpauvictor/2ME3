@@ -34,6 +34,7 @@ public class Node {
         this.down = new Node(Setting.None);
         this.left = new Node(Setting.None);
         this.up = new Node(Setting.None);
+        this.adj = new Node[]{right, down, left, up};
     }
 
     /**
@@ -74,6 +75,7 @@ public class Node {
                 n.down = this;
                 break;
         }
+        this.adj = new Node[]{right, down, left, up};
     }
 
     /**
@@ -105,6 +107,11 @@ public class Node {
             isBlue = true;
             isEmpty = false;
             this.setting = Setting.Blue;
+        } else {
+            isBlue = false;
+            isRed = false;
+            isEmpty = true;
+            this.setting = Setting.Empty;
         }
     }
 
@@ -115,7 +122,12 @@ public class Node {
      * @return true if node is contained, false otherwise
      */
     public boolean adjacentTo(Node other) {
-        return Arrays.asList(this.adj).contains(other);
+        for (Node n : adj) {
+            if (n != null)
+                if (n.hashCode() == other.hashCode())
+                    return true;
+        }
+        return false;
     }
 
     /**
@@ -126,16 +138,18 @@ public class Node {
      */
     public boolean adjacentTo(Setting setting) {
         for (Node n : adj)
-            if (n.getColor() == setting)
-                return true;
+            if (n != null)
+                if (n.getColor() == setting)
+                    return true;
         return false;
     }
 
     public ArrayList<Node> getAdjacent() {
         ArrayList<Node> nodes = new ArrayList<Node>();
         for (Node n : adj)
-            if (n.getColor() != Setting.None)
-                nodes.add(n);
+            if (n != null)
+                if (n.getColor() != Setting.None)
+                    nodes.add(n);
         return nodes;
     }
 
@@ -195,4 +209,5 @@ public class Node {
         str += "Up: " + up.value();
         return str;
     }
+
 }
