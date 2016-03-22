@@ -18,7 +18,7 @@ public class ViewModifier {
 		} else if (currentColor == PlayerColor.Blue) {
 			node.setFill(Color.BLUE);
 		} else if (currentColor == PlayerColor.Black){
-			
+			node.setFill(Color.BLACK);
 		} else {
 			System.out.println("Error! Color not found"); //I sure hope this never happens
 		}
@@ -44,13 +44,21 @@ public class ViewModifier {
 		input.setFill(Color.BLACK);
 	}
 	
+	public static void makeTrans(Circle[] circleArr) {
+		for (int i = 0; i < circleArr.length; i++) {
+			circleArr[i].setFill(Color.TRANSPARENT);
+		}
+	}
+	
 	public static void addTrophy(Circle[] circleArr, PlayerColor player) {
 		for (int i = 0; i < circleArr.length; i++) {
 			if (circleArr[i].getFill() == Color.TRANSPARENT) {
 				if (player == PlayerColor.Blue) {
 					circleArr[i].setFill(Color.BLUE);
+					return;
 				} else if (player == PlayerColor.Red) {
 					circleArr[i].setFill(Color.RED);
+					return;
 				}
 			}
 		}

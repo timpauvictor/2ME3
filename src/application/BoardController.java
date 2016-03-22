@@ -22,10 +22,15 @@ public class BoardController {
 	R0C0, R0C1, R0C2, R1C0, R1C1, R1C2, R2C0, R2C1, R2C2, R2C3, R3C0, R3C1, R3C2, R4C0, R4C1, R4C2;
 	private static PlayerColor currentColor = null;// Set default player colour
 													// to null
-
+	private static PlayerColor millFor = null;
+	
 	@FXML
-	private Circle redToken1, redToken2, redToken3, redToken4, redToken5, redToken6, blueToken1, blueToken2, blueToken3,
-			blueToken4, blueToken5, blueToken6;
+	private Circle redToken1, redToken2, redToken3, redToken4, redToken5, redToken6, 
+					blueToken1, blueToken2, blueToken3, blueToken4, blueToken5, blueToken6;
+	
+	@FXML
+	private Circle blueTrophy1, blueTrophy2, blueTrophy3, blueTrophy4, blueTrophy5, blueTrophy6, 
+					redTrophy1, redTrophy2, redTrophy3, redTrophy4, redTrophy5, redTrophy6;
 	
 	private int blueTokenCount = 6;
 	private int redTokenCount = 6;
@@ -70,6 +75,8 @@ public class BoardController {
 	@FXML
 	private void startButton(ActionEvent event) {
 		// get first player
+		ViewModifier.makeTrans(redTrophies());
+		ViewModifier.makeTrans(blueTrophies());
 		currentPhase = Phases.Planning;
 		currentColor = orderPlayRandom();
 
@@ -104,6 +111,22 @@ public class BoardController {
 		Circle[] toReturn = {
 				blueToken1, blueToken2, blueToken3,
 				blueToken4, blueToken5, blueToken6
+		};
+		return toReturn;
+	}
+	
+	private Circle[] blueTrophies() {
+		Circle[] toReturn = {
+				blueTrophy1, blueTrophy2, blueTrophy3,
+				blueTrophy4, blueTrophy5, blueTrophy6
+		};
+		return toReturn;
+	}
+	
+	private Circle[] redTrophies() {
+		Circle[] toReturn = {
+				redTrophy1, redTrophy2, redTrophy3,
+				redTrophy4, redTrophy5, redTrophy6
 		};
 		return toReturn;
 	}
@@ -156,17 +179,21 @@ public class BoardController {
 			Node temp = new Node((Circle) event.getSource());
 			if (currentColor == PlayerColor.Red && redTokenCount > 0 && temp.isValid()) { //if it's red's turn and he has tokens available
 				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Red); //change the color of what he clicks on
+				board.update(jaggedCircles());
 				redTokenCount--; //decrement his count
 				ViewModifier.removeToken(redTokens()); //remove a token from the side
-				alternateTurn(); //change turns
+				if (!checkMills()) {
+					alternateTurn();
+				}
 			} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0 && temp.isValid()) { //if it's blue's turn and he has tokens available
 				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Blue); //change the color of what he clicks on to blue
+				board.update(jaggedCircles());
 				blueTokenCount--; //decrement his count of available tokens
 				ViewModifier.removeToken(blueTokens()); //remove a token from the side
-				alternateTurn(); //change turns
+				if (!checkMills()) {
+					alternateTurn();
+				}
 			}
-			board.update(jaggedCircles());
-			checkMills();
 			if (redTokenCount == 0 && blueTokenCount == 0) { //if both players have 0 tokens left
 				currentPhase = Phases.selMove; //we change phases
 				updateMessage(currentColor.toString() + ": Choose a circle to move"); //tell the user
@@ -187,24 +214,44 @@ public class BoardController {
             System.out.println(newCircle.getId());
 			Node prevNode = board.getNode(prevCircle.getId());
 			if (newNode.adjacentTo(prevNode)) {
-				System.out.println("true");
+				System.out.println("True");
 				ViewModifier.changeNodeColor(prevCircle, PlayerColor.Black);
 				ViewModifier.changeNodeColor(newCircle, currentColor);
 			} else {
 				System.out.println("False");
 			}
+		} else if (currentPhase == Phases.millFound) {
+			if (millFor == PlayerColor.Red) {
+				Circle clickedCircle = (Circle) event.getSource();
+				if (clickedCircle.getFill() == Color.BLUE) {
+					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
+					ViewModifier.addTrophy(redTrophies(), currentColor);
+				}
+			} else if (millFor == PlayerColor.Blue) {
+				Circle clickedCircle = (Circle) event.getSource();
+				if (clickedCircle.getFill() == Color.RED) {
+					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
+					ViewModifier.addTrophy(blueTrophies(), currentColor);
+				}
+			}
 		}
-        board.update(jaggedCircles());
+        board.update(jaggedCircles()); //updates the nodes for our board function
 	}
 
-	private void checkMills() {
-		if (currentColor == PlayerColor.Red && board.hasMills(Setting.Blue)) {
-			updateMessage("Found a mill! Remove a Red disc");
-			}
-		if (currentColor == PlayerColor.Blue && board.hasMills(Setting.Red)) {
-			updateMessage("Found a mill! Remove a Blue disc");
+	private boolean checkMills() { //function to check for mills
+		if (currentColor == PlayerColor.Red && board.hasMills(Setting.Red)) {
+			currentPhase = Phases.millFound;
+			updateMessage("Mill for red");
+			millFor = PlayerColor.Red;
+			return true;
+		} else if (currentColor == PlayerColor.Blue && board.hasMills(Setting.Blue)) {
+			currentPhase = Phases.millFound;
+			updateMessage("Mill for blue");
+			millFor = PlayerColor.Blue;
+			return true;
+		} else {
+			return false;
 		}
-		
 	}
 	
 	private void alternateTurn() {
