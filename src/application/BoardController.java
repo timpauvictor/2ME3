@@ -35,7 +35,7 @@ public class BoardController {
 
 	private Board board = new Board();
 
-	Circle prevNode = null;
+	private Circle prevCircle = null;
 	private Phases currentPhase = null;
 
 	// private PlayerColor currentPlayer = null;
@@ -163,18 +163,26 @@ public class BoardController {
 				updateMessage(currentColor.toString() + ": Choose a circle to move"); //tell the user
 			}
 		} else if (currentPhase == Phases.selMove) { //check if in the selecting node to move phase
-			prevNode = (Circle) event.getSource(); //store the clicked on node to prevNode
-			if (currentColor == PlayerColor.Red && prevNode.getFill() == Color.RED) {
+			prevCircle = (Circle) event.getSource(); //store the clicked on node to prevNode
+			if (currentColor == PlayerColor.Red && prevCircle.getFill() == Color.RED) {
 				//this is valid
-				currentPhase = Phases.moveTo;
-			} else if (currentColor == PlayerColor.Blue && prevNode.getFill() == Color.BLUE) {
-				currentPhase = Phases.moveTo;
+				currentPhase = Phases.moveTo; //change phase to moving
+			} else if (currentColor == PlayerColor.Blue && prevCircle.getFill() == Color.BLUE) {
+				currentPhase = Phases.moveTo; //change phase to moving
 			} else { //any other combinations are invalid
-				updateMessage("Invalid, click your color: " + currentColor.toString());
+				updateMessage("Invalid, click your color: " + currentColor.toString()); //inform the user of the misclick
 			}
 		} else if (currentPhase == Phases.moveTo) { //check if in the moving phase
-			Circle newNode = (Circle) event.getSource();
-			checkAdj(prevNode, newNode);
+			Circle newCircle = (Circle) event.getSource();
+			Node newNode = board.getNode(newCircle.getId());
+			Node prevNode = board.getNode(prevCircle.getId());
+			if (newNode.adjacentTo(prevNode)) {
+				System.out.println("true");
+				ViewModifier.changeNodeColor(prevCircle, PlayerColor.Black);
+				ViewModifier.changeNodeColor(newCircle, currentColor);
+			} else {
+				System.out.println("False");
+			}
 		}
 	}
 
@@ -186,26 +194,6 @@ public class BoardController {
 			updateMessage("Found a mill! Remove a Blue disc");
 		}
 		
-	}
-
-	private void checkAdj(Circle one, Circle two) {
-		String oneID = one.getId();
-		String twoID = two.getId();
-		System.out.println(checkAdj(oneID, twoID));
-		
-	}
-	
-	private boolean checkAdj(String one, String two) {
-		if (one.equals("R0C0")) {
-			if (two.equals("R2C0")) {
-				return true;
-			} else if (two.equals("R0C1")) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return false;
 	}
 	
 	private void alternateTurn() {
