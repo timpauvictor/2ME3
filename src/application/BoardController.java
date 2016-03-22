@@ -171,6 +171,7 @@ public class BoardController {
 
 		}
 		updateMessage("Load Button Pressed " + currentColor + " play first");
+		currentColor = board.getTurn();
 	}
 
 	// Event Listener on Button.onAction
