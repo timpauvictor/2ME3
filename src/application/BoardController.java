@@ -212,6 +212,7 @@ public class BoardController {
 		
 		
         board.update(jaggedCircles());
+        System.out.println(currentPhase);
         if (currentPhase == Phases.Planning) { //check if in planning phase
 			//check for valid click
 			Node temp = new Node((Circle) event.getSource());
@@ -251,21 +252,22 @@ public class BoardController {
 			Circle newCircle = (Circle) event.getSource(); //make a new circle from the one we just clicked on
 			Node newNode = board.getNode(newCircle.getId()); //make a new Node from the circle we just made
 			Node prevNode = board.getNode(prevCircle.getId()); //make a new node from the previous circle that was clicked
-			if (newNode.adjacentTo(prevNode)) { //if the new node is adjacent to the old one
+			if (newNode.adjacentTo(prevNode) && newNode.isValid()) { //if the new node is adjacent to the old one
 				ViewModifier.changeNodeColor(prevCircle, PlayerColor.Black); //remove the node by setting the color to black
 				ViewModifier.changeNodeColor(newCircle, currentColor); //change the color of the new node to the current player
 				board.update(jaggedCircles());
+				if (!checkMills()) {
+					alternateTurn(); //change turns
+					currentPhase = Phases.selMove; //switch phase
+				} else {
+					currentPhase = Phases.millFound;
+				}
 			} else { //else we give an error message and make them do it again
 				updateMessage("Invalid Node, try again");
+				currentPhase = Phases.selMove;
 			}
 //			System.out.println(checkMills());
-			if (!checkMills()) {
-				alternateTurn(); //change turns
-				currentPhase = Phases.selMove; //switch phase
-			} else {
-				currentPhase = Phases.millFound;
-			}
-		} else if (currentPhase == Phases.millFound) { //if we're in the mill phase
+			} else if (currentPhase == Phases.millFound) { //if we're in the mill phase
 			if (millFor == PlayerColor.Red) { //and there's a mill for red 
 				Circle clickedCircle = (Circle) event.getSource(); //make a new circle from the event
 				if (clickedCircle.getFill() == Color.BLUE) { //if the circle we clicked on is blue (and we're red)

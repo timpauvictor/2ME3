@@ -62,6 +62,8 @@ public class Board {
             System.out.println("error reading stored file, did you tamper with it???");
         }
     }
+    
+    
 
     /**
      * accepts any non-linked array of nodes
