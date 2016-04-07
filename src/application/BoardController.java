@@ -132,6 +132,37 @@ public class BoardController {
 		};
 		return toReturn;
 	}
+	
+	public int getTrophyCount(PlayerColor color) {
+		if (color == PlayerColor.Red) {
+			return countRedTrophies();
+		} else if (color == PlayerColor.Blue) {
+			return countBlueTrophies();	
+		}
+		return 0;
+	}
+	
+	public int countRedTrophies() {
+		Circle[] troph = redTrophies();
+		int counter = 0; 
+		for (int i = 0; i < troph.length; i++) {
+			if (troph[i].getFill() == Color.RED) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+	
+	public int countBlueTrophies() {
+		Circle[] troph = blueTrophies();
+		int counter = 0;
+		for (int i = 0; i < troph.length; i++) {
+			if (troph[i].getFill() == Color.BLUE) {
+				counter++;
+			}
+		}
+		return counter;
+	}
 
 	private PlayerColor toColor(Node input) { //change the color to the input
 		if (input.getColor() == Setting.Red)
@@ -176,8 +207,12 @@ public class BoardController {
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
+		// if (currentColor == PlayerColor.Blue && ai.exists == true) {
+		
+		
+		
         board.update(jaggedCircles());
-		if (currentPhase == Phases.Planning) { //check if in planning phase
+        if (currentPhase == Phases.Planning) { //check if in planning phase
 			//check for valid click
 			Node temp = new Node((Circle) event.getSource());
 			if (currentColor == PlayerColor.Red && redTokenCount > 0 && temp.isValid()) { //if it's red's turn and he has tokens available
@@ -212,16 +247,23 @@ public class BoardController {
 				updateMessage("Invalid, click your color: " + currentColor.toString()); //inform the user of the misclick
 			}
 		} else if (currentPhase == Phases.moveTo) { //check if in the moving phase
+			updateMessage("Choose an adjacent location to move to");
 			Circle newCircle = (Circle) event.getSource(); //make a new circle from the one we just clicked on
 			Node newNode = board.getNode(newCircle.getId()); //make a new Node from the circle we just made
 			Node prevNode = board.getNode(prevCircle.getId()); //make a new node from the previous circle that was clicked
 			if (newNode.adjacentTo(prevNode)) { //if the new node is adjacent to the old one
 				ViewModifier.changeNodeColor(prevCircle, PlayerColor.Black); //remove the node by setting the color to black
 				ViewModifier.changeNodeColor(newCircle, currentColor); //change the color of the new node to the current player
-				alternateTurn(); //change turns
-				currentPhase = Phases.selMove; //switch phase
+				board.update(jaggedCircles());
 			} else { //else we give an error message and make them do it again
 				updateMessage("Invalid Node, try again");
+			}
+//			System.out.println(checkMills());
+			if (!checkMills()) {
+				alternateTurn(); //change turns
+				currentPhase = Phases.selMove; //switch phase
+			} else {
+				currentPhase = Phases.millFound;
 			}
 		} else if (currentPhase == Phases.millFound) { //if we're in the mill phase
 			if (millFor == PlayerColor.Red) { //and there's a mill for red 
@@ -229,7 +271,7 @@ public class BoardController {
 				if (clickedCircle.getFill() == Color.BLUE) { //if the circle we clicked on is blue (and we're red)
 					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black); //set it to black to get rid of it
 					ViewModifier.addTrophy(redTrophies(), currentColor); //give the player a trophy of their kill!
-					currentPhase = prevPhase; //change the phase to where we were
+					currentPhase = Phases.selMove; //change the phase to where we were
 					alternateTurn(); //change turns
 				} //the below chunk is identical 'cept for swapping the colors around
 			} else if (millFor == PlayerColor.Blue) {
@@ -237,10 +279,10 @@ public class BoardController {
 				if (clickedCircle.getFill() == Color.RED) {
 					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
 					ViewModifier.addTrophy(blueTrophies(), currentColor);
-					currentPhase = prevPhase;
+					currentPhase = Phases.selMove;
 					alternateTurn();
 				}
-			}
+			} 
 			
 		} else if (currentPhase == Phases.gameOver) { //if the game is over
 			//do nothing
@@ -263,7 +305,7 @@ public class BoardController {
 				counter++; //increment the counter
 			}
 		}
-		if (counter == 6) { //if the counter is 6, we've won!
+		if (counter == 4) { //if the counter is 6, we've won!
 			return true;
 		} else {
 			return false; //else we haven't
@@ -272,7 +314,11 @@ public class BoardController {
 
 	private boolean checkMills() { //function to check for mills
 		if (currentColor == PlayerColor.Red && board.hasMills(Setting.Red)) { //if it's red's turn and he has a mill
-			prevPhase = currentPhase; //keep track of the phase we left in
+			if (currentPhase == Phases.moveTo) {
+				prevPhase = Phases.selMove;
+			} else {
+				prevPhase = currentPhase; //keep track of the phase we left in	
+			}
 			currentPhase = Phases.millFound; //change the current phase to one where mill is found
 			updateMessage("Mill for red"); //tell user
 			millFor = PlayerColor.Red; //set who the mill is for
