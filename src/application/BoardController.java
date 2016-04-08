@@ -209,6 +209,18 @@ public class BoardController {
 		updateMessage("Load Button Pressed " + currentColor + " play first");
 		currentColor = board.getTurn();
 	}
+	
+	public void AIPlanTurn(Board board) {
+		ai = new AI(board, jaggedCircles());
+		int[] plan = ai.doTurn(Phases.Planning);
+		ViewModifier.changeNodeColor(jaggedCircles()[plan[0]][plan[1]], currentColor);
+		board.update(jaggedCircles());
+		blueTokenCount--;
+		ViewModifier.removeToken(blueTokens());
+		if (!checkMills()) {
+			alternateTurn();
+		}
+	}
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
@@ -226,6 +238,9 @@ public class BoardController {
 				if (!checkMills()) {
 					alternateTurn();
 				}
+				if (players == 1) {
+					AIPlanTurn(board);
+				}
 			} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0 && temp.isValid() && players == 2) { //if it's blue's turn and he has tokens available
 				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Blue); //change the color of what he clicks on to blue
 				board.update(jaggedCircles());
@@ -234,11 +249,8 @@ public class BoardController {
 				if (!checkMills()) {
 					alternateTurn();
 				}
-			} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0 && players == 1) {
-				ai = new AI(board, jaggedCircles());
-				int[] plan = ai.doTurn(Phases.Planning);
-				ViewModifier.changeNodeColor(jaggedCircles()[plan[0]][plan[1]], currentColor);
-				board.update(jaggedCircles());
+			} else if (currentColor == PlayerColor.Blue && players == 1) {
+				AIPlanTurn(board);
 			}
 			if (redTokenCount == 0 && blueTokenCount == 0) { //if both players have 0 tokens left
 				currentPhase = Phases.selMove; //we change phases

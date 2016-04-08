@@ -23,6 +23,7 @@ public class AI {
 	 */
 	
 	public int[] doTurn(Phases p) {
+		board.getNode(2, 3);
 		if (p == Phases.Planning) {
 			int[] x = genPlan();
 			return x;
@@ -38,29 +39,20 @@ public class AI {
 
 	private int[] genPlan() {
 		Node n;
-		int row = randomWithinRange(0, 3);
+		int row = 0 + (int)(Math.random() * ((4 - 0) + 1));
 		int column = 0;
 		do {
-			System.out.println("failed");
 			if (row == 2) {
-				column = randomWithinRange(0, 3);
+				column = 0 + (int)(Math.random() * ((3 - 0) + 1));
 			} else {
-				column = randomWithinRange(0, 2);
+				column = 0 + (int)(Math.random() * ((2 - 0) + 1));
 			}
+			System.out.println(row);
+			System.out.println(column);
+			System.out.println("failed");
 			n = board.getNode(row, column);
 		} while (!n.isValid());
 //		colorCircle(row, column);
 		return new int[]{row, column};
-	}
-	
-	
-	
-//	private void colorCircle(int row, int column) {
-//		ViewModifier.changeNodeColor(circles[row][column], PlayerColor.Blue);
-//	}
-
-	private int randomWithinRange(int min, int max) {
-		int range = (max - min) + 1;
-		return (int)(Math.random() * range) + min;
 	}
 }
