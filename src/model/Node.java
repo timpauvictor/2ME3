@@ -100,7 +100,12 @@ public class Node {
                 isRed = true;
                 isEmpty = false;
             case Blue:
-
+                isBlue = true;
+                isEmpty = false;
+            case Empty:
+                isEmpty = true;
+                isBlue = false;
+                isRed = false;
         }
         this.setting = setting;
     }
