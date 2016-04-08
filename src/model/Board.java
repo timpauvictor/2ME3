@@ -271,14 +271,14 @@ public class Board {
             return true;
         }
         else if (inner[4].isColor(color) && inner[5].isColor(color) && inner[6].isColor(color) &&
-                (!milledBefore[3][2] || milledBefore[3][1] || milledBefore[3][0])) {
+                (!milledBefore[3][2] || !milledBefore[3][1] || !milledBefore[3][0])) {
             milledBefore[3][2] = true;
             milledBefore[3][1] = true;
             milledBefore[3][0] = true;
             return true;
         }
         else if (inner[6].isColor(color) && inner[7].isColor(color) && inner[0].isColor(color) &&
-                (!milledBefore[3][0] && !milledBefore[2][0] && !milledBefore[1][0])) {
+                (!milledBefore[3][0] || !milledBefore[2][0] || !milledBefore[1][0])) {
             milledBefore[3][0] = true;
             milledBefore[2][0] = true;
             milledBefore[1][0] = true;
@@ -292,14 +292,14 @@ public class Board {
             return true;
         }
         else if (outer[2].isColor(color) && outer[3].isColor(color) && outer[4].isColor(color) &&
-                (!milledBefore[0][2] && !milledBefore[2][3] && !milledBefore[4][2])) {
+                (!milledBefore[0][2] || !milledBefore[2][3] || !milledBefore[4][2])) {
             milledBefore[0][2] = true;
             milledBefore[2][3] = true;
             milledBefore[4][2] = true;
             return true;
         }
         else if (outer[4].isColor(color) && outer[5].isColor(color) && outer[6].isColor(color) &&
-                (!milledBefore[4][2] || !milledBefore[4][1] || milledBefore[4][0])) {
+                (!milledBefore[4][2] || !milledBefore[4][1] || !milledBefore[4][0])) {
             milledBefore[4][2] = true;
             milledBefore[4][1] = true;
             milledBefore[4][0] = true;
