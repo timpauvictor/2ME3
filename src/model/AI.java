@@ -33,7 +33,7 @@ public class AI {
 	 */
 	
 	public int[] doTurn(Phases p) {
-		if (debug) { log("AI Phase: " + p); }
+//		if (debug) { log("AI Phase: " + p); }
 		if (p == Phases.Planning) {
 			int[] x = genPlan();
 			if (debug) { log("Planning - Picked " + x[0] + " " + x[1]); }
@@ -44,11 +44,28 @@ public class AI {
 			return x;
 		} else if (p == Phases.moveTo) {
 			int[] x = genMoveTo();
-			if (debug) { log("moveTo - Selected " + x[0] + " " + x[1] + "to move to");
+			if (debug) { log("moveTo - Selected " + x[0] + " " + x[1] + "to move to"); }
 			return x;
-			}
+		} else if (p == Phases.millFound) {
+			int[] x = genKill();
+			if (debug) { log("millFound - Killing node at " + x[0] + " " + x[1]); }
+			return x;
 		}
 		return new int[]{0, 0};
+	}
+	
+	private boolean isRed(int row, int column) {
+		return circles[row][column].getFill() == Color.RED;
+	}
+	
+	private int[] genKill() {
+		boolean valid = false;
+		int[] x;
+		do {
+			x = randomSpot();
+			valid = isRed(x[0], x[1]);
+		} while (!valid);
+		return x;
 	}
 	
 	private int[] genMoveTo() {
@@ -56,7 +73,7 @@ public class AI {
 		Node n;
 		boolean valid = false;
 		ArrayList<Node> adjacentNodes = board.getNode(selectedNode[0], selectedNode[1]).getAdjacent();
-		System.out.println(adjacentNodes);
+		System.out.println(adjacentNodes.get(0));
 		int direction;
 		int[] newLocation;
 		do {
