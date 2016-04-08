@@ -228,7 +228,6 @@ public class BoardController {
         board.update(jaggedCircles());
 //        System.out.println(currentPhase);
         if (currentPhase == Phases.Planning) { //check if in planning phase
-			//check for valid click
 			Node temp = new Node((Circle) event.getSource());
 			if (currentColor == PlayerColor.Red && redTokenCount > 0 && temp.isValid()) { //if it's red's turn and he has tokens available
 				ViewModifier.changeNodeColor((Circle) event.getSource(), PlayerColor.Red); //change the color of what he clicks on
@@ -238,7 +237,7 @@ public class BoardController {
 				if (!checkMills()) {
 					alternateTurn();
 				}
-				if (players == 1) {
+				if (players == 1 && blueTokenCount > 0) {
 					AIPlanTurn(board);
 				}
 			} else if (currentColor == PlayerColor.Blue && blueTokenCount > 0 && temp.isValid() && players == 2) { //if it's blue's turn and he has tokens available
@@ -257,7 +256,7 @@ public class BoardController {
 				updateMessage(currentColor.toString() + ": Choose a circle to move"); //tell the user
 			}
 		} else if (currentPhase == Phases.selMove) { //check if in the selecting node to move phase
-			System.out.println("controller - entered selMove");
+//			System.out.println("controller - entered selMove");
 			prevCircle = (Circle) event.getSource(); //store the clicked on node to prevNode
 			if (currentColor == PlayerColor.Red && prevCircle.getFill() == Color.RED) {
 				//this is valid
@@ -266,6 +265,10 @@ public class BoardController {
 				currentPhase = Phases.moveTo; //change phase to moving
 			} else { //any other combinations are invalid
 				updateMessage("Invalid, click your color: " + currentColor.toString()); //inform the user of the misclick
+			}
+			
+			if (currentColor == PlayerColor.Blue && players == 1) {
+				currentPhase = Phases.moveTo;
 			}
 		} else if (currentPhase == Phases.moveTo) { //check if in the moving phase
 			updateMessage("Choose an adjacent location to move to");
@@ -290,30 +293,50 @@ public class BoardController {
 				currentPhase = Phases.selMove;
 			}
 			} else if (currentPhase == Phases.millFound) { //if we're in the mill phase
-			if (millFor == PlayerColor.Red) { //and there's a mill for red 
-				Circle clickedCircle = (Circle) event.getSource(); //make a new circle from the event
-				if (clickedCircle.getFill() == Color.BLUE) { //if the circle we clicked on is blue (and we're red)
-					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black); // black to get rid of it
-					ViewModifier.addTrophy(redTrophies(), currentColor); //give a kill trophy
+				if (millFor == PlayerColor.Red) { //and there's a mill for red 
+					Circle clickedCircle = (Circle) event.getSource(); //make a new circle from the event
+					if (clickedCircle.getFill() == Color.BLUE) { //if the circle we clicked on is blue (and we're red)
+						ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black); // black to get rid of it
+						ViewModifier.addTrophy(redTrophies(), currentColor); //give a kill trophy
+						currentPhase = Phases.selMove; // change the phase to where we were
+						if (redTokenCount != 0 || blueTokenCount != 0) {
+							currentPhase = Phases.Planning;
+						}
+						alternateTurn(); // change turns
+					} // the below chunk is identical 'cept for swapping the colors
+						// around
+				} else if (millFor == PlayerColor.Blue && players == 1) {
+					ai = new AI(board, jaggedCircles());
+					int[] x = ai.doTurn(Phases.millFound);
+					ViewModifier.changeNodeColor(jaggedCircles()[x[0]][x[1]], PlayerColor.Black);
+					ViewModifier.addTrophy(blueTrophies(), PlayerColor.Blue);
 					currentPhase = Phases.selMove; // change the phase to where we were
 					if (redTokenCount != 0 || blueTokenCount != 0) {
 						currentPhase = Phases.Planning;
-					}
-					alternateTurn(); // change turns
-				} // the below chunk is identical 'cept for swapping the colors
-					// around
-			} else if (millFor == PlayerColor.Blue) {
-				Circle clickedCircle = (Circle) event.getSource();
-				if (clickedCircle.getFill() == Color.RED) {
-					ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
-					ViewModifier.addTrophy(blueTrophies(), currentColor);
-					currentPhase = Phases.selMove; // change the phase to where we were
-					if (redTokenCount != 0 || blueTokenCount != 0) {
-						currentPhase = Phases.Planning;
+						if (redTokenCount == 0) {
+							currentColor = PlayerColor.Blue;
+						} else if (blueTokenCount == 0) {
+							currentColor = PlayerColor.Red;
+						}
 					}
 					alternateTurn();
+				} else if (millFor == PlayerColor.Blue && players == 2) {
+					Circle clickedCircle = (Circle) event.getSource();
+					if (clickedCircle.getFill() == Color.RED) {
+						ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
+						ViewModifier.addTrophy(blueTrophies(), currentColor);
+						currentPhase = Phases.selMove; // change the phase to where we were
+						if (redTokenCount != 0 || blueTokenCount != 0) {
+							currentPhase = Phases.Planning;
+							if (redTokenCount == 0) {
+								currentColor = PlayerColor.Blue;
+							} else if (blueTokenCount == 0) {
+								currentColor = PlayerColor.Red;
+							}
+						}
+						alternateTurn();
+					}
 				}
-			}
 
 		} else if (currentPhase == Phases.gameOver) { // if the game is over
 			// do nothing
