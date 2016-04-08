@@ -180,14 +180,15 @@ public class Node {
      */
 
     public boolean isValid() { return isEmpty; }
+
     /**
      * retrieves the current color
      * @return the current color
      */
-
     public Setting getColor() {
         return this.setting;
     }
+
 
     public boolean isColor(Setting color) { return this.setting == color;}
 

@@ -11,7 +11,7 @@ public class Board {
     private Node[] outer = new Node[8];
     private Node[] inner = new Node[8];
     private Node[][] board = new Node[5][];
-
+    private boolean[][] milledBefore = new boolean[5][];
     private PlayerColor turn = PlayerColor.Black;
 
     /**
@@ -29,6 +29,12 @@ public class Board {
         square(outer);
         connect(inner, outer);
         create(inner, outer);
+
+        for (int i = 0; i < board.length; i++){
+            milledBefore[i] = new boolean[board[i].length];
+            for (int j = 0; j < milledBefore[i].length; j++)
+                milledBefore[i][j] = false;
+        }
     }
 
     /**
@@ -41,16 +47,16 @@ public class Board {
             BufferedReader reader = new BufferedReader(new FileReader(new File(file)));
             setTurn(PlayerColor.convert(reader.readLine()));
 
-            for (int i = 0; i < inner.length; i++) {
-                Node n = new Node("I" + i);
-                n.setColor(Setting.fromString(reader.readLine()));
-                inner[i] = n;
-            }
-
             for (int i = 0; i < outer.length; i++) {
                 Node n = new Node("O" + i);
                 n.setColor(Setting.fromString(reader.readLine()));
                 outer[i] = n;
+            }
+
+            for (int i = 0; i < inner.length; i++) {
+                Node n = new Node("I" + i);
+                n.setColor(Setting.fromString(reader.readLine()));
+                inner[i] = n;
             }
 
             square(inner);
@@ -60,6 +66,12 @@ public class Board {
         } catch (IOException e) {
         	
             System.out.println("error reading stored file, did you tamper with it???");
+        }
+
+        for (int i = 0; i < board.length; i++){
+            milledBefore[i] = new boolean[board[i].length];
+            for (int j = 0; j < milledBefore[i].length; j++)
+                milledBefore[i][j] = false;
         }
     }
     
@@ -244,23 +256,62 @@ public class Board {
     }
 
     public boolean hasMills(Setting color) {
-        if (inner[0].isColor(color) && inner[1].isColor(color) && inner[2].isColor(color))
+        if (inner[0].isColor(color) && inner[1].isColor(color) && inner[2].isColor(color) &&
+                (!milledBefore[1][0] || !milledBefore[1][1] || !milledBefore[1][2])) {
+            milledBefore[1][0] = true;
+            milledBefore[1][1] = true;
+            milledBefore[1][2] = true;
             return true;
-        else if (inner[2].isColor(color) && inner[3].isColor(color) && inner[4].isColor(color))
+        }
+        else if (inner[2].isColor(color) && inner[3].isColor(color) && inner[4].isColor(color) &&
+                (!milledBefore[1][2] || !milledBefore[2][2] || !milledBefore[3][2])) {
+            milledBefore[1][2] = true;
+            milledBefore[2][2] = true;
+            milledBefore[3][2] = true;
             return true;
-        else if (inner[4].isColor(color) && inner[5].isColor(color) && inner[6].isColor(color))
+        }
+        else if (inner[4].isColor(color) && inner[5].isColor(color) && inner[6].isColor(color) &&
+                (!milledBefore[3][2] || milledBefore[3][1] || milledBefore[3][0])) {
+            milledBefore[3][2] = true;
+            milledBefore[3][1] = true;
+            milledBefore[3][0] = true;
             return true;
-        else if (inner[6].isColor(color) && inner[7].isColor(color) && inner[0].isColor(color))
+        }
+        else if (inner[6].isColor(color) && inner[7].isColor(color) && inner[0].isColor(color) &&
+                (!milledBefore[3][0] && !milledBefore[2][0] && !milledBefore[1][0])) {
+            milledBefore[3][0] = true;
+            milledBefore[2][0] = true;
+            milledBefore[1][0] = true;
             return true;
-
-        else if (outer[0].isColor(color) && outer[1].isColor(color) && outer[2].isColor(color))
+        }
+        else if (outer[0].isColor(color) && outer[1].isColor(color) && outer[2].isColor(color) &&
+                (!milledBefore[0][0] || !milledBefore[0][1] || !milledBefore[0][2])) {
+            milledBefore[0][0] = true;
+            milledBefore[0][1] = true;
+            milledBefore[0][2] = true;
             return true;
-        else if (outer[2].isColor(color) && outer[3].isColor(color) && outer[4].isColor(color))
+        }
+        else if (outer[2].isColor(color) && outer[3].isColor(color) && outer[4].isColor(color) &&
+                (!milledBefore[0][2] && !milledBefore[2][3] && !milledBefore[4][2])) {
+            milledBefore[0][2] = true;
+            milledBefore[2][3] = true;
+            milledBefore[4][2] = true;
             return true;
-        else if (outer[4].isColor(color) && outer[5].isColor(color) && outer[6].isColor(color))
+        }
+        else if (outer[4].isColor(color) && outer[5].isColor(color) && outer[6].isColor(color) &&
+                (!milledBefore[4][2] || !milledBefore[4][1] || milledBefore[4][0])) {
+            milledBefore[4][2] = true;
+            milledBefore[4][1] = true;
+            milledBefore[4][0] = true;
             return true;
-        else if (outer[6].isColor(color) && outer[7].isColor(color) && outer[0].isColor(color))
+        }
+        else if (outer[6].isColor(color) && outer[7].isColor(color) && outer[0].isColor(color) &&
+                (!milledBefore[4][0] || !milledBefore[2][0] || !milledBefore[0][0])) {
+            milledBefore[4][0] = true;
+            milledBefore[2][0] = true;
+            milledBefore[0][0] = true;
             return true;
+        }
 
         return false;
     }
@@ -278,6 +329,8 @@ public class Board {
             if (board[dRow][dColumn].isValid()) {
                 board[dRow][dColumn].setColor(board[sRow][sColumn].getColor());
                 board[sRow][sColumn].setColor(Setting.Empty);
+                milledBefore[dRow][dColumn] = false;
+                milledBefore[sRow][sColumn] = false;
             }
             else
                 throw new Exception("invalid move, node already occupied");

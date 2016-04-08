@@ -1,0 +1,9 @@
+Bug 1:  After forming a milling during planning,
+        and a opposing piece is removed, the games
+        forwards to move selections
+
+Bug 2:  Loading and saving returns incorrect board, unknown
+        source of issue
+        **I believe this issue is resolved
+
+Bug 3: Removing a mill
