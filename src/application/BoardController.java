@@ -45,7 +45,7 @@ public class BoardController {
 
 	private Board board = new Board();
 	private AI ai;
-	private int players = 1;
+	private int players = 2;
 	
 	private Circle prevCircle = null;
 	private Phases currentPhase = null;
@@ -297,7 +297,7 @@ public class BoardController {
 					Circle clickedCircle = (Circle) event.getSource(); //make a new circle from the event
 					if (clickedCircle.getFill() == Color.BLUE) { //if the circle we clicked on is blue (and we're red)
 						ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black); // black to get rid of it
-						ViewModifier.addTrophy(redTrophies(), currentColor); //give a kill trophy
+						ViewModifier.addTrophy(redTrophies(), PlayerColor.Blue); //give a kill trophy
 						currentPhase = Phases.selMove; // change the phase to where we were
 						if (redTokenCount != 0 || blueTokenCount != 0) {
 							currentPhase = Phases.Planning;
@@ -309,7 +309,7 @@ public class BoardController {
 					ai = new AI(board, jaggedCircles());
 					int[] x = ai.doTurn(Phases.millFound);
 					ViewModifier.changeNodeColor(jaggedCircles()[x[0]][x[1]], PlayerColor.Black);
-					ViewModifier.addTrophy(blueTrophies(), PlayerColor.Blue);
+					ViewModifier.addTrophy(blueTrophies(), PlayerColor.Red);
 					currentPhase = Phases.selMove; // change the phase to where we were
 					if (redTokenCount != 0 || blueTokenCount != 0) {
 						currentPhase = Phases.Planning;
