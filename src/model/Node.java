@@ -37,6 +37,8 @@ public class Node {
         this.id = id;
         this.adj = new Node[]{right, down, left, up};
     }
+    
+    
 
     /**
      * terminating constructor for an adjacent Node
@@ -46,7 +48,6 @@ public class Node {
     public Node(Setting setting) {
         this.setting = setting;
     }
-    
     
     public Node(Circle input){
     	setColor(input);

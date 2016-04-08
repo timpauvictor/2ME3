@@ -285,6 +285,12 @@ public class Board {
         else
             throw new Exception("can't move an empty node");
     }
+    
+    
+    public void move(Node n, Node d) {
+    	d.setColor(n.getColor());
+    	n.setColor(Setting.Empty);
+    }
 
     /**
      * maps a 2-D array of circles to the 2-D array of nodes
