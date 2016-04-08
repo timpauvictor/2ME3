@@ -20,7 +20,7 @@ public class AI {
 	}
 	
 	private void log(String s) {
-		System.out.println(s);
+		System.out.println("AI: " + s);
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class AI {
 			return x;
 		} else if (p == Phases.moveTo) {
 			int[] x = genMoveTo();
-			if (debug) { log("moveTo - Selected " + x[0] + " " + x[1] + "to move to"); }
+			if (debug) { log("moveTo - Selected " + x[0] + " " + x[1] + "to move to with a color of " + circles[x[0]][x[1]].getFill()); }
 			return x;
 		} else if (p == Phases.millFound) {
 			int[] x = genKill();
@@ -73,7 +73,7 @@ public class AI {
 		Node n;
 		boolean valid = false;
 		ArrayList<Node> adjacentNodes = board.getNode(selectedNode[0], selectedNode[1]).getAdjacent();
-		System.out.println(adjacentNodes.get(0));
+//		System.out.println(adjacentNodes.get(0));
 		int direction;
 		int[] newLocation;
 		do {
@@ -81,7 +81,7 @@ public class AI {
 			if (direction == 0) { //try going up
 				try {
 					n = board.getNode(selectedNode[0] + 1, selectedNode[1]);
-					if (adjacentNodes.contains(n)) {
+					if (adjacentNodes.contains(n) && n.getColor() == Setting.Empty) {
 						valid = true;
 						return new int[]{selectedNode[0] + 1, selectedNode[1]};
 					} else {
@@ -93,7 +93,7 @@ public class AI {
 			} else if (direction == 1) { //try going down
 				try {
 					n = board.getNode(selectedNode[0] - 1, selectedNode[1]);
-					if (adjacentNodes.contains(n)) {
+					if (adjacentNodes.contains(n) && n.getColor() == Setting.Empty) {
 						valid = true;
 						return new int[]{selectedNode[0] - 1, selectedNode[1]};
 
@@ -106,7 +106,7 @@ public class AI {
 			} else if (direction == 2) { //try going left
 				try {
 					n = board.getNode(selectedNode[0], selectedNode[1] - 1);
-					if (adjacentNodes.contains(n)) {
+					if (adjacentNodes.contains(n) && n.getColor() == Setting.Empty) {
 						valid = true;
 						return new int[]{selectedNode[0], selectedNode[1] - 1};
 					} else {
@@ -118,7 +118,7 @@ public class AI {
 			} else if (direction == 3) { //finally, try going right
 				try {
 					n = board.getNode(selectedNode[0], selectedNode[1] + 1);
-					if (adjacentNodes.contains(n)) {
+					if (adjacentNodes.contains(n) && n.getColor() == Setting.Empty) {
 						valid = true;
 						return new int[]{selectedNode[0], selectedNode[1] + 1};
 					} else {
@@ -151,7 +151,21 @@ public class AI {
 			} else { //otherwise
 				valid = false; //it's invalid
 			}
-		} while (!valid || !checkAdj(x)); //keep trying until it's valid or if it is valid, keep trying until we find a spot with adjacent nodes
+			if (valid) {
+				n = board.getNode(x[0], x[1]);
+				int counter = 0;
+				for (Node other: n.getAdjacent()) {
+					if (other.getColor() == Setting.Empty) {
+						counter++;
+					}
+				}
+				if (counter > 0) {
+					valid = true;
+				} else {
+					valid = false;
+				}
+			}
+		} while (!valid); //keep trying until it's valid or if it is valid, keep trying until we find a spot with adjacent nodes
 		selectedNode = x;
 		return x;
 	}

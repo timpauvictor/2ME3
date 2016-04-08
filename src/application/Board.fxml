@@ -48,7 +48,7 @@
       <Circle fx:id="R3C0" fill="BLACK" layoutX="232.0" layoutY="273.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Circle fx:id="R2C1" fill="BLACK" layoutX="232.0" layoutY="202.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
       <Circle fx:id="R2C2" fill="BLACK" layoutX="369.0" layoutY="201.0" onMouseClicked="#nodeClick" radius="9.0" stroke="#383838" strokeType="INSIDE" />
-      <Button layoutX="246.0" layoutY="367.0" mnemonicParsing="false" onAction="#startButton" text="Start Game" />
+      <Button layoutX="195.0" layoutY="367.0" mnemonicParsing="false" onAction="#startButton" text="Start 1vs1" />
       <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="162.0" layoutY="14.0" prefHeight="30.0" prefWidth="275.0" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="DejaVu Sans Bold" size="14.0" />
@@ -95,5 +95,6 @@
       <Circle fx:id="redTrophy4" fill="#0000ff00" layoutX="576.0" layoutY="283.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="redTrophy5" fill="#0000ff00" layoutX="523.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="redTrophy6" fill="#0000ff00" layoutX="576.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button layoutX="332.0" layoutY="367.0" mnemonicParsing="false" onAction="#startButton" text="Start 1vsAI" />
    </children>
 </Pane>
