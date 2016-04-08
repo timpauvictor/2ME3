@@ -65,19 +65,6 @@ public class BoardController {
 		currentColor = str;
 	}
 
-	// Event Listener on Circle.onMouseClicked
-	// @FXML
-	// private void blueClick(MouseEvent event) {
-	// updateMessage("Blue Piece Clicked");
-	// currentColor = PlayerColor.Blue;
-	// }
-
-	// Event Listener on Circle[#redButton].onMouseClicked
-	// @FXML
-	// private void redClick(MouseEvent event) {
-	// updateMessage("Red Piece Clicked");
-	// currentColor = PlayerColor.Red;
-	// }
 
 	@FXML
 	private void startButton(ActionEvent event) {
@@ -213,10 +200,23 @@ public class BoardController {
 	public void AIPlanTurn(Board board) {
 		ai = new AI(board, jaggedCircles());
 		int[] plan = ai.doTurn(Phases.Planning);
-		ViewModifier.changeNodeColor(jaggedCircles()[plan[0]][plan[1]], currentColor);
+		ViewModifier.changeNodeColor(jaggedCircles()[plan[0]][plan[1]], PlayerColor.Blue);
 		board.update(jaggedCircles());
 		blueTokenCount--;
 		ViewModifier.removeToken(blueTokens());
+		if (!checkMills()) {
+			alternateTurn();
+		}
+	}
+	
+	public void AISelMoveTurn(Board board) {
+		ai = new AI(board, jaggedCircles());
+		int[] plan = ai.doTurn(Phases.selMove);
+		ViewModifier.changeNodeColor(jaggedCircles()[plan[0]][plan[1]], PlayerColor.Black);
+		board.update(jaggedCircles());
+		plan = ai.doTurn(Phases.moveTo);
+		ViewModifier.changeNodeColor(jaggedCircles()[plan[0]][plan[1]], PlayerColor.Blue);
+		board.update(jaggedCircles());
 		if (!checkMills()) {
 			alternateTurn();
 		}
@@ -257,6 +257,7 @@ public class BoardController {
 				updateMessage(currentColor.toString() + ": Choose a circle to move"); //tell the user
 			}
 		} else if (currentPhase == Phases.selMove) { //check if in the selecting node to move phase
+			System.out.println("controller - entered selMove");
 			prevCircle = (Circle) event.getSource(); //store the clicked on node to prevNode
 			if (currentColor == PlayerColor.Red && prevCircle.getFill() == Color.RED) {
 				//this is valid
@@ -276,13 +277,16 @@ public class BoardController {
 				ViewModifier.changeNodeColor(newCircle, currentColor); //change the color of the new node to the current player
 				board.update(jaggedCircles());
 				if (!checkMills()) {
+					if (players == 1) {
+						AISelMoveTurn(board);
+					}
 					alternateTurn(); //change turns
 					currentPhase = Phases.selMove; //switch phase
 				} else {
 					currentPhase = Phases.millFound;
 				}
 			} else { //else we give an error message and make them do it again
-				updateMessage("Invalid Node, try again");
+				updateMessage("Invalid Node, select a valid node and try again");
 				currentPhase = Phases.selMove;
 			}
 			} else if (currentPhase == Phases.millFound) { //if we're in the mill phase
@@ -323,10 +327,6 @@ public class BoardController {
 			currentPhase = Phases.gameOver;
 		}
 		board.update(jaggedCircles()); // updates the nodes for our board object
-	}
-
-	private void updateCircles(Object doTurn) {
-//		R0C0 = 
 	}
 
 	public boolean checkWin(Circle[] circleArr) { // check if we've won
