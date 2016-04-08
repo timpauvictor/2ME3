@@ -255,6 +255,16 @@ public class Board {
         }
     }
 
+    public void refresh(int row, int column) {
+        this.milledBefore[row][column] = false;
+    }
+
+    public void refresh(String position) {
+        String[] positions = position.split("C");
+        positions[0] = positions[0].replace("R", "");
+        refresh(Integer.parseInt(positions[0]), Integer.parseInt(positions[1]));
+    }
+
     public boolean hasMills(Setting color) {
         if (inner[0].isColor(color) && inner[1].isColor(color) && inner[2].isColor(color) &&
                 (!milledBefore[1][0] || !milledBefore[1][1] || !milledBefore[1][2])) {
