@@ -12,7 +12,7 @@ public class Board {
     private Node[] outer = new Node[8];
     private Node[] inner = new Node[8];
     private Node[][] board = new Node[5][];
-    private Setting[][] prevState = new Setting[5][];
+    private String[][] prevState = new String[5][];
     private boolean[][] milledBefore = new boolean[5][];
     private PlayerColor turn = PlayerColor.Black;
 
@@ -83,9 +83,9 @@ public class Board {
 
     private void record() {
         for (int i = 0; i < board.length; i++) {
-            prevState[i] = new Setting[board[i].length];
+            prevState[i] = new String[board[i].length];
             for (int j = 0; j < board[i].length; j++) {
-                prevState[i][j] = board[i][j].getColor();
+                prevState[i][j] = board[i][j].toString();
             }
         }
     }
@@ -379,7 +379,7 @@ public class Board {
     public void update(Circle[][] circles) {
         for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j].getColor() != prevState[i][j]) {
+                if (board[i][j].toString().equals(prevState[i][j])) {
                     milledBefore[i][j] = false;
                 }
             }
