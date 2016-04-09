@@ -3,6 +3,7 @@ package model;
 import javafx.scene.shape.Circle;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class Board {
 
@@ -11,6 +12,7 @@ public class Board {
     private Node[] outer = new Node[8];
     private Node[] inner = new Node[8];
     private Node[][] board = new Node[5][];
+    private Setting[][] prevState = new Setting[5][];
     private boolean[][] milledBefore = new boolean[5][];
     private PlayerColor turn = PlayerColor.Black;
 
@@ -35,6 +37,8 @@ public class Board {
             for (int j = 0; j < milledBefore[i].length; j++)
                 milledBefore[i][j] = false;
         }
+
+        record();
     }
 
     /**
@@ -70,8 +74,19 @@ public class Board {
 
         for (int i = 0; i < board.length; i++){
             milledBefore[i] = new boolean[board[i].length];
-            for (int j = 0; j < milledBefore[i].length; j++)
+            for (int j = 0; j < board[i].length; j++)
                 milledBefore[i][j] = false;
+        }
+
+        record();
+    }
+
+    private void record() {
+        for (int i = 0; i < board.length; i++) {
+            prevState[i] = new Setting[board[i].length];
+            for (int j = 0; j < board[i].length; j++) {
+                prevState[i][j] = board[i][j].getColor();
+            }
         }
     }
     
@@ -362,10 +377,19 @@ public class Board {
      * @param circles - the 2 - D array of circles
      */
     public void update(Circle[][] circles) {
+        for (int i = 0; i < board.length; i++)
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j].getColor() != prevState[i][j]) {
+                    milledBefore[i][j] = false;
+                }
+            }
+
         for (int i = 0; i < circles.length; i++)
             for (int j = 0; j < circles[i].length; j++) {
                 this.setNode(i, j, circles[i][j]);
             }
+
+        record();
     }
 
 

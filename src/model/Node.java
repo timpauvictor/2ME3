@@ -220,12 +220,12 @@ public class Node {
     @Override
     public String toString() {
         String str = "";
-        str += this.value() + " | ";
+        /*str += this.value() + " | ";
         str += "Right: " + right.value() + ", ";
         str += "Down: " + down.value() + ", ";
         str += "Left: " + left.value() + ", ";
-        str += "Up: " + up.value();
-        return str;
+        str += "Up: " + up.value();*/
+        return this.value();
     }
 
 }
