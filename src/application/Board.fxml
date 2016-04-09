@@ -95,6 +95,6 @@
       <Circle fx:id="redTrophy4" fill="#0000ff00" layoutX="576.0" layoutY="283.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="redTrophy5" fill="#0000ff00" layoutX="523.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="redTrophy6" fill="#0000ff00" layoutX="576.0" layoutY="331.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button layoutX="332.0" layoutY="367.0" mnemonicParsing="false" onAction="#startButton" text="Start 1vsAI" />
+      <Button layoutX="332.0" layoutY="367.0" mnemonicParsing="false" onAction="#vsAIStart" text="Start 1vsAI" />
    </children>
 </Pane>
