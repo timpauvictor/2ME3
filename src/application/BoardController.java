@@ -43,7 +43,7 @@ public class BoardController {
 	@FXML
 	private Label message = new Label();
 
-	private Board board = new Board();
+	private Board board;
 	private AI ai;
 	private int players;
 	
@@ -76,6 +76,9 @@ public class BoardController {
 	private void vsAIStart() {
 		genericStart();
 		players = 1;
+		if (currentColor == PlayerColor.Blue) {
+			AIPlanTurn(board);
+		}
 	}
 	
 	public void genericStart() {
@@ -92,6 +95,7 @@ public class BoardController {
 		            ViewModifier.changeNodeColor(c, PlayerColor.Red);
 		        for (Circle c: blueTokens())
 		            ViewModifier.changeNodeColor(c, PlayerColor.Blue);
+		        board = new Board();
 		        board.update(jaggedCircles());
 				sayStart(currentColor);
 	}
@@ -238,7 +242,7 @@ public class BoardController {
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
-		System.out.println(players);
+		System.out.println(checkMills());
         board.update(jaggedCircles());
         System.out.println("click during phase: " + currentPhase);
         if (currentPhase == Phases.Planning) { //check if in planning phase
@@ -318,7 +322,7 @@ public class BoardController {
 						ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black); // black to get rid of it
 						ViewModifier.addTrophy(redTrophies(), PlayerColor.Blue); //give a kill trophy
 						currentPhase = Phases.selMove; // change the phase to where we were
-						if (redTokenCount != 0 || blueTokenCount != 0) {
+						if (redTokenCount <= 0 || blueTokenCount <= 0) {
 							currentPhase = Phases.Planning;
 						}
 						alternateTurn(); // change turns
@@ -330,14 +334,15 @@ public class BoardController {
 					ViewModifier.changeNodeColor(jaggedCircles()[x[0]][x[1]], PlayerColor.Black);
 					ViewModifier.addTrophy(blueTrophies(), PlayerColor.Red);
 					redTokenCount--;
-					currentPhase = Phases.selMove; // change the phase to where we were
-					if (redTokenCount != 0 || blueTokenCount != 0) {
-						currentPhase = Phases.Planning;
+					if (redTokenCount <= 0 && blueTokenCount <= 0) {
+						currentPhase = Phases.selMove;
 						if (redTokenCount <= 0) {
 							currentColor = PlayerColor.Blue;
 						} else if (blueTokenCount <= 0) {
 							currentColor = PlayerColor.Red;
 						}
+					} else {
+						currentPhase = Phases.Planning; // change the phase to where we were
 					}
 					alternateTurn();
 				} else if (millFor == PlayerColor.Blue && players == 2) {
@@ -346,14 +351,15 @@ public class BoardController {
 						ViewModifier.changeNodeColor(clickedCircle, PlayerColor.Black);
 						ViewModifier.addTrophy(blueTrophies(), currentColor);
 						redTokenCount--;
-						currentPhase = Phases.selMove; // change the phase to where we were
-						if (redTokenCount <= 0 || blueTokenCount <= 0) {
-							currentPhase = Phases.Planning;
+						if (redTokenCount <= 0 && blueTokenCount <= 0) {
+							currentPhase = Phases.selMove;
 							if (redTokenCount <= 0) {
 								currentColor = PlayerColor.Blue;
 							} else if (blueTokenCount <= 0) {
 								currentColor = PlayerColor.Red;
 							}
+						} else {
+							currentPhase = Phases.Planning;
 						}
 						alternateTurn();
 					}

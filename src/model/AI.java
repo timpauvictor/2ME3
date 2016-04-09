@@ -75,9 +75,10 @@ public class AI {
 		ArrayList<Node> adjacentNodes = board.getNode(selectedNode[0], selectedNode[1]).getAdjacent();
 //		System.out.println(adjacentNodes.get(0));
 		int direction;
-		int[] newLocation;
+		int[] newLocation = {0,0};
 		do {
 			direction = randomNumberInRange(3, 0);
+			log("Failed at direction " + direction);
 			if (direction == 0) { //try going up
 				try {
 					n = board.getNode(selectedNode[0] + 1, selectedNode[1]);
