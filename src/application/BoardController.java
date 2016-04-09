@@ -45,7 +45,7 @@ public class BoardController {
 
 	private Board board = new Board();
 	private AI ai;
-	private int players = 1;
+	private int players;
 	
 	private Circle prevCircle = null;
 	private Phases currentPhase = null;
@@ -68,21 +68,32 @@ public class BoardController {
 
 	@FXML
 	private void startButton(ActionEvent event) {
+		genericStart();
+		players = 2;
+	}
+	
+	@FXML
+	private void vsAIStart() {
+		genericStart();
+		players = 1;
+	}
+	
+	public void genericStart() {
 		// get first player
-		ViewModifier.makeTrans(redTrophies());
-		ViewModifier.makeTrans(blueTrophies());
-		currentPhase = Phases.Planning;
-		currentColor = orderPlayRandom();
+				ViewModifier.makeTrans(redTrophies());
+				ViewModifier.makeTrans(blueTrophies());
+				currentPhase = Phases.Planning;
+				currentColor = orderPlayRandom();
 
-        blueTokenCount = 6;
-        redTokenCount = 6;
-        ViewModifier.clearColors(new Circle[]{R0C0, R0C1, R0C2, R1C0, R1C1, R1C2, R2C0, R2C1, R2C2, R2C3, R3C0, R3C1, R3C2, R4C0, R4C1, R4C2});
-        for (Circle c: redTokens())
-            ViewModifier.changeNodeColor(c, PlayerColor.Red);
-        for (Circle c: blueTokens())
-            ViewModifier.changeNodeColor(c, PlayerColor.Blue);
-        board.update(jaggedCircles());
-		sayStart(currentColor);
+		        blueTokenCount = 6;
+		        redTokenCount = 6;
+		        ViewModifier.clearColors(new Circle[]{R0C0, R0C1, R0C2, R1C0, R1C1, R1C2, R2C0, R2C1, R2C2, R2C3, R3C0, R3C1, R3C2, R4C0, R4C1, R4C2});
+		        for (Circle c: redTokens())
+		            ViewModifier.changeNodeColor(c, PlayerColor.Red);
+		        for (Circle c: blueTokens())
+		            ViewModifier.changeNodeColor(c, PlayerColor.Blue);
+		        board.update(jaggedCircles());
+				sayStart(currentColor);
 	}
 
 	private void sayStart(PlayerColor starter) {
@@ -90,7 +101,9 @@ public class BoardController {
 			updateMessage("Planning Phase: Red Starts");
 		} else if (starter == PlayerColor.Blue) {
 			updateMessage("Planning Phase: Blue Starts");
-			AIPlanTurn(board);
+			if (players == 1) {
+				AIPlanTurn(board);	
+			}
 		}
 	}
 
@@ -225,7 +238,7 @@ public class BoardController {
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
-		
+		System.out.println(players);
         board.update(jaggedCircles());
         System.out.println("click during phase: " + currentPhase);
         if (currentPhase == Phases.Planning) { //check if in planning phase
@@ -255,7 +268,10 @@ public class BoardController {
 			if (redTokenCount <= 0 && blueTokenCount <= 0) { //if both players have 0 tokens left
 				currentPhase = Phases.selMove; //we change phases
 				updateMessage(currentColor.toString() + ": Choose a circle to move"); //tell the user
-				AISelMoveTurn(board);
+				if (players == 1) {
+					AISelMoveTurn(board);
+				}
+				
 			}
 		} else if (currentPhase == Phases.selMove) { //check if in the selecting node to move phase
 //			System.out.println("controller - entered selMove");
