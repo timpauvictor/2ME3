@@ -11,7 +11,7 @@ public class AI {
 	Board board;
 	boolean exists;
 	Circle[][] circles;
-	boolean debug = true;
+	boolean debug = false;
 	int[] selectedNode;
 	public AI(Board b, Circle[][] circles) {
 		this.exists = true;

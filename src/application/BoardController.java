@@ -242,9 +242,9 @@ public class BoardController {
 
 	// Event Listener on Button.onAction
 	public void nodeClick(MouseEvent event) { //this event is called whenever a node is clicked on
-		System.out.println(checkMills());
+		//System.out.println(checkMills());
         board.update(jaggedCircles());
-        System.out.println("click during phase: " + currentPhase);
+        //System.out.println("click during phase: " + currentPhase);
         if (currentPhase == Phases.Planning) { //check if in planning phase
 			Node temp = new Node((Circle) event.getSource());
 			if (currentColor == PlayerColor.Red && redTokenCount > 0 && temp.isValid()) { //if it's red's turn and he has tokens available
