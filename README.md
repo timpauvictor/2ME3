@@ -1,3 +1,3 @@
-# 2ME3
+# Six Mens Morris
 
-2ME3 Design Group Project
+Please take a look at the develop branch
